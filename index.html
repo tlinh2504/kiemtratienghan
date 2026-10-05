@@ -1,2085 +1,577 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=1.5">
-  <title>Kiểm tra tiếng Hàn 10.000 từ | Auto sau khi Check</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: linear-gradient(145deg, #0a0a16 0%, #13132b 50%, #0d1b2a 100%);
-      font-family: 'Segoe UI', 'Roboto', 'Noto Sans KR', system-ui, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      margin: 0;
-    }
-    .container {
-      max-width: 950px;
-      width: 100%;
-      background: rgba(15, 15, 35, 0.75);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border-radius: 42px;
-      padding: 32px 28px;
-      box-shadow: 0 45px 70px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #eef3ff;
-      transition: all 0.3s ease;
-    }
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 6px;
-      letter-spacing: 3px;
-      background: linear-gradient(to right, #cbb6ff, #8bb8ff, #5fd9f5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 30px rgba(130,120,255,0.35);
-    }
-    .subtitle {
-      text-align: center;
-      color: #9eb2e0;
-      margin-bottom: 22px;
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
-    .user-section {
-      background: rgba(0,0,0,0.45);
-      border-radius: 60px;
-      padding: 14px 22px;
-      margin-bottom: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid rgba(255,255,255,0.22);
-      backdrop-filter: blur(12px);
-    }
-    .user-section label {
-      font-weight: 600;
-      color: #ccd6ff;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-    }
-    .user-section input {
-      flex: 2;
-      min-width: 180px;
-      background: rgba(8, 8, 22, 0.8);
-      border: 1px solid rgba(255,255,255,0.28);
-      padding: 12px 18px;
-      border-radius: 40px;
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-      transition: 0.25s;
-    }
-    .user-section input:focus {
-      border-color: #a78bfa;
-      box-shadow: 0 0 16px #a78bfa55;
-    }
-    .save-name-btn {
-      background: #5e48c2;
-      border: none;
-      color: white;
-      font-weight: bold;
-      padding: 12px 24px;
-      border-radius: 40px;
-      cursor: pointer;
-      background: linear-gradient(135deg, #6d5acb, #4838a0);
-      transition: 0.2s;
-      letter-spacing: 0.6px;
-      box-shadow: 0 8px 20px rgba(80, 55, 170, 0.5);
-      white-space: nowrap;
-    }
-    .save-name-btn:hover {
-      background: linear-gradient(135deg, #8777e2, #5c4ab8);
-      transform: scale(1.03);
-    }
-    .progress-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(0,0,0,0.55);
-      border-radius: 50px;
-      padding: 12px 24px;
-      margin-bottom: 22px;
-      font-weight: 500;
-      flex-wrap: wrap;
-      gap: 12px;
-      backdrop-filter: blur(10px);
-    }
-    .badge {
-      background: #1c1f3a;
-      padding: 8px 22px;
-      border-radius: 30px;
-      color: #c8d4ff;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-    .word-counter {
-      background: #353a5c;
-      padding: 7px 24px;
-      border-radius: 25px;
-      font-weight: bold;
-      color: #f3e6ff;
-      font-size: 0.95rem;
-    }
-    .card {
-      background: #090b1a;
-      border-radius: 38px;
-      padding: 32px 24px;
-      margin: 18px 0 22px;
-      box-shadow: 0 24px 45px rgba(0,0,0,0.8);
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-    }
-    .vietnamese-word {
-      font-size: 3.8rem;
-      font-weight: 700;
-      color: #ffda7a;
-      text-shadow: 0 6px 20px #00000080;
-      margin-bottom: 30px;
-      letter-spacing: 1.5px;
-      word-break: break-word;
-      line-height: 1.2;
-    }
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-    }
-    .korean-input {
-      width: 88%;
-      max-width: 430px;
-      padding: 18px 26px;
-      font-size: 1.65rem;
-      text-align: center;
-      border-radius: 60px;
-      border: 2px solid #4e5385;
-      background: #11142d;
-      color: #fff;
-      outline: none;
-      font-weight: 500;
-      transition: 0.25s;
-      letter-spacing: 0.8px;
-      font-family: 'Noto Sans KR', 'Segoe UI', sans-serif;
-    }
-    .korean-input:focus {
-      border-color: #f7b348;
-      box-shadow: 0 0 24px #f7a83a;
-    }
-    .action-buttons {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 6px;
-    }
-    .btn {
-      background: #2b3050;
-      border: none;
-      padding: 15px 32px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 1.05rem;
-      color: #eef2ff;
-      cursor: pointer;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #30355a;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.15);
-      letter-spacing: 0.5px;
-    }
-    .btn-check {
-      background: #e58a38;
-      background: linear-gradient(145deg, #f7a84e, #dc7722);
-      color: #000;
-      font-weight: bold;
-      border: none;
-    }
-    .btn-check:hover:not(:disabled) {
-      filter: brightness(1.15);
-      transform: translateY(-2px);
-    }
-    .btn:hover:not(:disabled) {
-      background: #434b72;
-      transform: translateY(-1px);
-    }
-    .btn-fetch {
-      background: linear-gradient(145deg, #4a7db8, #2a5a8a);
-      color: white;
-      border: none;
-    }
-    .btn-fetch:hover:not(:disabled) {
-      filter: brightness(1.15);
-      transform: translateY(-2px);
-    }
-    .message-box {
-      margin: 20px 0 6px;
-      padding: 14px 20px;
-      border-radius: 30px;
-      font-weight: 600;
-      text-align: center;
-      font-size: 1.15rem;
-      background: #1a1d35;
-      min-height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-    }
-    .success-msg {
-      color: #b6f7c2;
-      background: #1d3e2a;
-      border: 1px solid #4db86b;
-    }
-    .error-msg {
-      color: #ffb0a8;
-      background: #462525;
-      border: 1px solid #da6c6c;
-    }
-    .info-msg {
-      color: #b8ceff;
-    }
-    .loading-msg {
-      color: #ffd966;
-      background: #3d3a1a;
-      border: 1px solid #ffd700;
-    }
-    .telegram-note {
-      font-size: 0.8rem;
-      color: #959bc6;
-      text-align: center;
-      margin-top: 16px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .fetch-controls {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 10px;
-    }
-    .fetch-controls select {
-      background: rgba(8, 8, 22, 0.8);
-      border: 1px solid rgba(255,255,255,0.28);
-      padding: 10px 18px;
-      border-radius: 40px;
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-      cursor: pointer;
-      min-width: 220px;
-      max-height: 300px;
-    }
-    .fetch-controls select:focus {
-      border-color: #a78bfa;
-    }
-    .fetch-controls select option {
-      background: #1a1d35;
-      padding: 5px;
-    }
-    .fetch-controls select optgroup {
-      background: #0a0a16;
-      color: #8bb8ff;
-    }
-    hr {
-      border-color: rgba(255,255,255,0.08);
-      margin: 15px 0 6px;
-    }
-    button:disabled {
-      opacity: 0.55;
-      pointer-events: none;
-    }
-    .source-info {
-      font-size: 0.75rem;
-      color: #7a80aa;
-      text-align: center;
-      margin-top: 8px;
-    }
-    .stats-mini {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: #9eb2e0;
-      margin-top: 5px;
-    }
-    @media (max-width: 500px) {
-      .vietnamese-word {
-        font-size: 2.5rem;
-      }
-      .fetch-controls {
-        flex-direction: column;
-        align-items: center;
-      }
-      .fetch-controls select {
-        width: 100%;
-        min-width: unset;
-      }
-      h1 {
-        font-size: 1.6rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm Tra Từ Vựng Tiếng Hàn</title>
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card: #ffffff;
+            --text: #333333;
+            --input-border: #e2e8f0;
+            --correct-bg: #f0fff4;
+            --correct-text: #22543d;
+            --wrong-bg: #fff5f5;
+            --wrong-text: #742a2a;
+        }
+        [data-theme="dark"] {
+            --primary: #90caf9;
+            --secondary: #ce93d8;
+            --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --card: #1e1e2f;
+            --text: #e0e0e0;
+            --input-border: #444466;
+            --correct-bg: #1e3a2f;
+            --correct-text: #a5d6a7;
+            --wrong-bg: #3a1e1e;
+            --wrong-text: #ef9a9a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: var(--bg); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; transition: all 0.3s; }
+        .container { background: var(--card); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 30px; max-width: 600px; width: 100%; color: var(--text); }
+        h1 { text-align: center; margin-bottom: 20px; font-size: 22px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tab-btn { flex: 1; min-width: 100px; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; background: #e5e7eb; color: #374151; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .mode-row { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .mode-btn { flex: 1; padding: 10px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; font-weight: bold; text-align: center; }
+        .mode-btn.active { border-color: var(--primary); background: rgba(102,126,234,0.1); }
+        .word-display { background: rgba(102,126,234,0.1); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid var(--primary); text-align: center; }
+        .korean-word { font-size: 36px; font-weight: bold; margin-bottom: 10px; }
+        .viet-question { font-size: 24px; font-weight: bold; margin-bottom: 10px; color: var(--secondary); }
+        .speak-btn { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 8px; }
+        .progress { text-align: center; margin-bottom: 15px; font-weight: 500; }
+        input { width: 100%; padding: 14px; font-size: 18px; border: 2px solid var(--input-border); border-radius: 10px; margin-bottom: 12px; background: transparent; color: var(--text); }
+        input:focus { outline: none; border-color: var(--primary); }
+        .btn { width: 100%; padding: 14px; font-size: 17px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: transform 0.2s; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; }
+        .btn:hover { transform: scale(1.02); }
+        .result { margin-top: 15px; padding: 15px; border-radius: 10px; font-size: 19px; font-weight: bold; display: none; text-align: center; }
+        .correct { background: var(--correct-bg); color: var(--correct-text); border: 2px solid; }
+        .wrong { background: var(--wrong-bg); color: var(--wrong-text); border: 2px solid; }
+        .stats-row { display: flex; justify-content: space-around; margin-top: 20px; font-weight: bold; flex-wrap: wrap; gap: 10px; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .wrong-list { margin-top: 15px; max-height: 250px; overflow-y: auto; }
+        .wrong-item { padding: 8px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
+        .theme-toggle { position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 24px; cursor: pointer; }
+        .export-area { margin-top: 15px; }
+        textarea { width: 100%; height: 120px; padding: 10px; border-radius: 8px; border: 1px solid var(--input-border); background: transparent; color: var(--text); margin-bottom: 10px; }
+        .stat-card { background: rgba(102,126,234,0.1); padding: 15px; border-radius: 10px; margin: 10px 0; }
+        .finished { text-align: center; }
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body>
-<div class="container">
-  <h1>🇰🇷 10.000+ TỪ HÀN-VIỆT</h1>
-  <div class="subtitle">120+ nguồn từ vựng • Nhấn Kiểm tra → Tự động chuyển</div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <div class="container">
+        <h1>📚 Kiểm Tra Từ Vựng Tiếng Hàn</h1>
 
-  <div class="user-section">
-    <label>👤 Tên bạn:</label>
-    <input type="text" id="usernameInput" placeholder="Nhập tên của bạn" autocomplete="off">
-    <button class="save-name-btn" id="saveNameBtn">💾 Lưu tên</button>
-  </div>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="quiz">Luyện Tập</button>
+            <button class="tab-btn" data-tab="wrong">Từ Sai</button>
+            <button class="tab-btn" data-tab="stats">Thống Kê</button>
+            <button class="tab-btn" data-tab="manage">Quản Lý</button>
+        </div>
 
-  <div class="progress-area">
-    <span class="badge" id="displayName">👥 Chưa có tên</span>
-    <span class="word-counter" id="progressText">📚 0 / 10000</span>
-  </div>
+        <div class="section active" id="quiz">
+            <div class="mode-row">
+                <div class="mode-btn active" data-mode="kr-vn" onclick="setMode('kr-vn')">한 → Việt</div>
+                <div class="mode-btn" data-mode="vn-kr" onclick="setMode('vn-kr')">Việt → 한</div>
+            </div>
 
-  <div class="card">
-    <div class="vietnamese-word" id="vietWord">...</div>
-    <div class="input-group">
-      <input type="text" id="koreanInput" class="korean-input" placeholder="한국어 입력..." autocomplete="off" autofocus>
-      <div class="action-buttons">
-        <button class="btn btn-check" id="checkBtn">✅ Kiểm tra</button>
-      </div>
+            <div class="progress">
+                <span id="current-num">1</span> / <span id="total-num"></span>
+                <span id="mode-label" style="margin-left:10px; color:var(--primary)">한 → Việt</span>
+            </div>
+
+            <div class="word-display">
+                <div class="korean-word" id="korean-word"></div>
+                <div class="viet-question hidden" id="viet-question"></div>
+                <button class="speak-btn" id="speak-btn" onclick="speakWord()">🔊 Nghe</button>
+            </div>
+
+            <input type="text" id="answer-input" placeholder="Nhập đáp án...">
+            <button class="btn btn-primary" onclick="checkAnswer()">Kiểm Tra ✅</button>
+
+            <div class="result" id="result-box"></div>
+
+            <div class="stats-row">
+                <div>✅ Đúng: <span id="correct-count">0</span></div>
+                <div>❌ Sai: <span id="wrong-count">0</span></div>
+            </div>
+
+            <div class="finished hidden" id="finished-area">
+                <h3>🎉 Hoàn Thành!</h3>
+                <p style="margin:15px 0;">
+                    Tổng: <span id="final-total"></span> | 
+                    Đúng: <span id="final-correct"></span> | 
+                    Sai: <span id="final-wrong"></span>
+                </p>
+                <button class="btn btn-primary" onclick="restart()">Làm Lại 🔄</button>
+                <button class="btn btn-primary" style="margin-top:10px; background:linear-gradient(135deg,#e53e3e,#c53030)" onclick="switchToWrong()">Ôn Từ Sai ❌</button>
+            </div>
+        </div>
+
+        <div class="section" id="wrong">
+            <h3>📋 Danh Sách Từ Cần Ôn Lại</h3>
+            <div class="wrong-list" id="wrong-list-container"></div>
+            <p id="empty-wrong" style="margin-top:15px; color:gray">Chưa có từ nào bị sai! 🎉</p>
+            <button class="btn btn-primary" style="margin-top:15px" onclick="reviewWrong()">Bắt Đầu Ôn Từ Sai 🔁</button>
+            <button class="btn btn-primary" style="margin-top:10px; background:linear-gradient(135deg,#e53e3e,#c53030)" onclick="clearWrong()">Xóa Danh Sách 🗑️</button>
+        </div>
+
+        <div class="section" id="stats">
+            <h3>📈 Thống Kê Học Tập</h3>
+            <div class="stat-card">
+                <p>🔢 Tổng số lần làm bài: <strong id="stat-total-sessions">0</strong></p>
+                <p>✅ Tổng số câu đúng: <strong id="stat-total-correct">0</strong></p>
+                <p>❌ Tổng số câu sai: <strong id="stat-total-wrong">0</strong></p>
+                <p>📊 Tỷ lệ đúng: <strong id="stat-rate">0%</strong></p>
+            </div>
+            <div class="stat-card">
+                <p>📉 Từ hay sai nhất:</p>
+                <p id="stat-most-wrong" style="color:var(--wrong-text); font-weight:bold;">Chưa có dữ liệu</p>
+            </div>
+        </div>
+
+        <div class="section" id="manage">
+            <h3>💾 Nhập / Xuất Từ Vựng</h3>
+            <p style="margin:10px 0; font-size:14px; color:gray">Định dạng: TừHàn:NghĩaViệt (mỗi từ 1 dòng)</p>
+            <textarea id="vocab-input" placeholder="Ví dụ:&#10;사랑:tình yêu&#10;친구:bạn bè"></textarea>
+            <button class="btn btn-primary" onclick="importVocab()">📥 Nhập Từ Vựng</button>
+            <div class="export-area">
+                <button class="btn btn-primary" style="background:linear-gradient(135deg,#38a169,#2f855a)" onclick="exportVocab()">📤 Xuất Từ Vựng</button>
+                <textarea id="export-output" readonly style="margin-top:10px" placeholder="Nội dung xuất ra sẽ hiển thị ở đây..."></textarea>
+                <button class="btn btn-primary" style="margin-top:5px; padding:8px" onclick="copyExport()">📋 Sao Chép</button>
+            </div>
+        </div>
     </div>
-    <div class="message-box" id="messageBox">✨ Nhập tên và bắt đầu học</div>
-  </div>
 
-  <div class="fetch-controls">
-    <select id="sourceSelect">
-      <optgroup label="📚 TỔNG HỢP">
-        <option value="combined">🌟 Tổng hợp 10.000+ từ</option>
-        <option value="topik_all">🎯 TOPIK I+II (tổng hợp)</option>
-      </optgroup>
-      <optgroup label="🇰🇷 TOPIK - CẤP ĐỘ">
-        <option value="topik1">📘 TOPIK I - Sơ cấp 1</option>
-        <option value="topik2">📗 TOPIK II - Trung cấp 1</option>
-        <option value="topik3">📙 TOPIK II - Trung cấp 2</option>
-        <option value="topik_advanced">📕 TOPIK II - Cao cấp</option>
-      </optgroup>
-      <optgroup label="📖 TOPIK - KỸ NĂNG">
-        <option value="topik_reading">📰 TOPIK Đọc hiểu</option>
-        <option value="topik_listening">🎧 TOPIK Nghe hiểu</option>
-        <option value="topik_writing">✍️ TOPIK Viết</option>
-        <option value="topik_speaking">🗣️ TOPIK Nói</option>
-        <option value="topik_grammar">📐 TOPIK Ngữ pháp</option>
-      </optgroup>
-      <optgroup label="🏠 ĐỜI SỐNG HÀNG NGÀY">
-        <option value="daily">🌅 Hàng ngày</option>
-        <option value="daily_advanced">🌇 Hàng ngày (nâng cao)</option>
-        <option value="family">👨‍👩‍👧‍👦 Gia đình</option>
-        <option value="house">🏠 Nhà cửa</option>
-        <option value="shopping">🛍️ Mua sắm</option>
-        <option value="weather">🌤️ Thời tiết</option>
-        <option value="season">🌸 Các mùa</option>
-        <option value="time">⏰ Thời gian</option>
-        <option value="number">🔢 Số đếm</option>
-        <option value="color">🎨 Màu sắc</option>
-      </optgroup>
-      <optgroup label="💼 CÔNG VIỆC & KINH DOANH">
-        <option value="business">💼 Kinh doanh</option>
-        <option value="office">🏢 Văn phòng</option>
-        <option value="management">📊 Quản lý</option>
-        <option value="marketing">📣 Tiếp thị</option>
-        <option value="finance">💰 Tài chính</option>
-        <option value="accounting">🧾 Kế toán</option>
-        <option value="hr">👥 Nhân sự</option>
-        <option value="it_work">💻 IT - Công nghệ</option>
-      </optgroup>
-      <optgroup label="🎓 HỌC THUẬT & KHOA HỌC">
-        <option value="academic">📚 Học thuật</option>
-        <option value="science">🔬 Khoa học</option>
-        <option value="math">📐 Toán học</option>
-        <option value="physics">⚛️ Vật lý</option>
-        <option value="chemistry">🧪 Hóa học</option>
-        <option value="biology">🧬 Sinh học</option>
-        <option value="astronomy">🌌 Thiên văn</option>
-        <option value="geography">🌍 Địa lý</option>
-        <option value="history">📜 Lịch sử</option>
-        <option value="philosophy">🧠 Triết học</option>
-        <option value="psychology">🧘 Tâm lý học</option>
-        <option value="sociology">👥 Xã hội học</option>
-        <option value="linguistics">🗣️ Ngôn ngữ học</option>
-        <option value="literature">📖 Văn học</option>
-      </optgroup>
-      <optgroup label="🏥 Y TẾ & SỨC KHỎE">
-        <option value="medical">🏥 Y tế tổng hợp</option>
-        <option value="hospital">🏨 Bệnh viện</option>
-        <option value="disease">🤒 Bệnh tật</option>
-        <option value="medicine">💊 Thuốc</option>
-        <option value="firstaid">🚑 Sơ cứu</option>
-        <option value="mental_health">🧠 Sức khỏe tinh thần</option>
-        <option value="nutrition">🥗 Dinh dưỡng</option>
-        <option value="fitness">💪 Thể hình</option>
-      </optgroup>
-      <optgroup label="⚖️ PHÁP LÝ & CHÍNH TRỊ">
-        <option value="legal">⚖️ Pháp lý</option>
-        <option value="law_court">🏛️ Tòa án</option>
-        <option value="criminal">🔪 Hình sự</option>
-        <option value="civil">📄 Dân sự</option>
-        <option value="government">🏛️ Chính phủ</option>
-        <option value="politics">🗳️ Chính trị</option>
-        <option value="diplomacy">🤝 Ngoại giao</option>
-        <option value="international">🌐 Quốc tế</option>
-      </optgroup>
-      <optgroup label="🌍 DU LỊCH & VĂN HÓA">
-        <option value="travel">✈️ Du lịch</option>
-        <option value="hotel">🏨 Khách sạn</option>
-        <option value="airport">🛫 Sân bay</option>
-        <option value="tourism">🧳 Du lịch</option>
-        <option value="culture">🎭 Văn hóa</option>
-        <option value="festival">🎉 Lễ hội</option>
-        <option value="tradition">📿 Truyền thống</option>
-        <option value="religion">⛪ Tôn giáo</option>
-      </optgroup>
-      <optgroup label="🍜 ẨM THỰC">
-        <option value="food">🍱 Ẩm thực</option>
-        <option value="korean_food">🇰🇷 Món Hàn</option>
-        <option value="cooking">👨‍🍳 Nấu ăn</option>
-        <option value="restaurant">🍽️ Nhà hàng</option>
-        <option value="drink">🥤 Đồ uống</option>
-        <option value="dessert">🍰 Tráng miệng</option>
-      </optgroup>
-      <optgroup label="⚽ THỂ THAO & GIẢI TRÍ">
-        <option value="sports">⚽ Thể thao</option>
-        <option value="football">⚽ Bóng đá</option>
-        <option value="baseball">⚾ Bóng chày</option>
-        <option value="basketball">🏀 Bóng rổ</option>
-        <option value="swimming">🏊 Bơi lội</option>
-        <option value="martial_arts">🥋 Võ thuật</option>
-        <option value="esports">🎮 Esports</option>
-        <option value="entertainment">🎬 Giải trí</option>
-        <option value="music">🎵 Âm nhạc</option>
-        <option value="dance">💃 Khiêu vũ</option>
-        <option value="movie">🎬 Phim</option>
-        <option value="drama">📺 Phim Hàn</option>
-        <option value="kpop">🎤 K-pop</option>
-      </optgroup>
-      <optgroup label="🎨 NGHỆ THUẬT & THIẾT KẾ">
-        <option value="art">🎨 Nghệ thuật</option>
-        <option value="painting">🖌️ Hội họa</option>
-        <option value="design">🎨 Thiết kế</option>
-        <option value="photography">📸 Nhiếp ảnh</option>
-        <option value="architecture">🏛️ Kiến trúc</option>
-        <option value="fashion">👗 Thời trang</option>
-      </optgroup>
-      <optgroup label="🌐 NGUỒN CHÍNH THỐNG">
-        <option value="sejong">🏛️ Viện Sejong</option>
-        <option value="korean_government">🏛️ Từ điển quốc gia</option>
-        <option value="korean_edu">📚 Bộ Giáo dục Hàn</option>
-        <option value="kbs">📺 KBS News</option>
-        <option value="mbc">📺 MBC News</option>
-        <option value="ytn">📺 YTN News</option>
-        <option value="naver">🔍 Naver Dictionary</option>
-        <option value="daum">🔍 Daum Dictionary</option>
-        <option value="papago">🔤 Papago</option>
-      </optgroup>
-      <optgroup label="📰 BÁO CHÍ & TRUYỀN THÔNG">
-        <option value="news">📰 Báo chí</option>
-        <option value="newspaper">📰 Báo in</option>
-        <option value="broadcast">📡 Phát thanh</option>
-        <option value="journalism">✍️ Báo chí</option>
-        <option value="social_media">📱 Mạng xã hội</option>
-        <option value="advertising">📢 Quảng cáo</option>
-      </optgroup>
-      <optgroup label="🏗️ KỸ THUẬT & XÂY DỰNG">
-        <option value="engineering">🔧 Kỹ thuật</option>
-        <option value="construction">🏗️ Xây dựng</option>
-        <option value="electricity">⚡ Điện</option>
-        <option value="mechanical">⚙️ Cơ khí</option>
-        <option value="civil_eng">🏗️ Xây dựng dân dụng</option>
-        <option value="architect">🏛️ Kiến trúc sư</option>
-      </optgroup>
-      <optgroup label="🚗 GIAO THÔNG & VẬN TẢI">
-        <option value="transport">🚗 Giao thông</option>
-        <option value="car">🚗 Xe hơi</option>
-        <option value="public_transport">🚌 Vận tải công cộng</option>
-        <option value="shipping">🚢 Vận tải biển</option>
-        <option value="aviation">✈️ Hàng không</option>
-      </optgroup>
-      <optgroup label="💻 CÔNG NGHỆ THÔNG TIN">
-        <option value="technology">💻 Công nghệ</option>
-        <option value="programming">👨‍💻 Lập trình</option>
-        <option value="web">🌐 Web</option>
-        <option value="mobile">📱 Di động</option>
-        <option value="ai">🧠 Trí tuệ nhân tạo</option>
-        <option value="cybersecurity">🔒 An ninh mạng</option>
-        <option value="cloud">☁️ Điện toán đám mây</option>
-        <option value="database">🗄️ Cơ sở dữ liệu</option>
-      </optgroup>
-      <optgroup label="🌿 MÔI TRƯỜNG & SINH THÁI">
-        <option value="environment">🌿 Môi trường</option>
-        <option value="ecology">🌍 Sinh thái</option>
-        <option value="climate">🌤️ Khí hậu</option>
-        <option value="renewable">♻️ Năng lượng tái tạo</option>
-        <option value="conservation">🦁 Bảo tồn</option>
-        <option value="pollution">🚫 Ô nhiễm</option>
-      </optgroup>
-      <optgroup label="🧘 TÂM LINH & CẢM XÚC">
-        <option value="emotion">💖 Cảm xúc</option>
-        <option value="mindset">🧠 Tư duy</option>
-        <option value="meditation">🧘 Thiền</option>
-        <option value="spiritual">🙏 Tâm linh</option>
-        <option value="love">💕 Tình yêu</option>
-        <option value="friendship">🤝 Tình bạn</option>
-      </optgroup>
-      <optgroup label="🎯 KỸ NĂNG SỐNG">
-        <option value="skill">🛠️ Kỹ năng</option>
-        <option value="leadership">👔 Lãnh đạo</option>
-        <option value="teamwork">🤝 Làm việc nhóm</option>
-        <option value="problem_solving">🧩 Giải quyết vấn đề</option>
-        <option value="communication">🗣️ Giao tiếp</option>
-        <option value="time_management">⏰ Quản lý thời gian</option>
-      </optgroup>
-    </select>
-    <button class="btn btn-fetch" id="fetchBtn">🔄 Lấy từ vựng</button>
-  </div>
-  <div class="source-info" id="sourceInfo">📌 120+ nguồn từ vựng từ các trang web tiếng Hàn</div>
-  <div class="stats-mini">
-    <span>📚 <span id="totalSources">120+</span> nguồn</span>
-    <span>🎯 <span id="totalWords">10.000+</span> từ</span>
-  </div>
+    <script>
+        // === DANH SÁCH TỪ VỰNG ĐẦY ĐỦ TỪ VỞ & FILE EXCEL ===
+        let baseVocabulary = [
+            // === Từ vở viết (1-50) ===
+            { korean: "화자", vietnamese: "người, nói" },
+            { korean: "같다", vietnamese: "đúng, giống nhau" },
+            { korean: "얼굴", vietnamese: "khuôn mặt" },
+            { korean: "봄", vietnamese: "xuân" },
+            { korean: "여름", vietnamese: "hè, mùa hè" },
+            { korean: "가을", vietnamese: "mùa thu" },
+            { korean: "겨울", vietnamese: "đông, mùa đông" },
+            { korean: "가격", vietnamese: "giá cả" },
+            { korean: "안경", vietnamese: "kính" },
+            { korean: "직접", vietnamese: "trực tiếp" },
+            { korean: "시원하다", vietnamese: "mát mẻ" },
+            { korean: "가깝다", vietnamese: "gần" },
+            { korean: "가지다", vietnamese: "có, mang" },
+            { korean: "가르치다", vietnamese: "dạy" },
+            { korean: "알다", vietnamese: "biết" },
+            { korean: "오이다", vietnamese: "gần gũi" },
+            { korean: "문자", vietnamese: "chữ, tin nhắn" },
+            { korean: "다르다", vietnamese: "khác" },
+            { korean: "내리다", vietnamese: "xuống, đi xuống" },
+            { korean: "다시", vietnamese: "lại" },
+            { korean: "않다", vietnamese: "không" },
+            { korean: "안", vietnamese: "bên trong" },
+            { korean: "마음에 들다", vietnamese: "hài lòng, thích" },
+            { korean: "신다", vietnamese: "mặc (giày, dép)" },
+            { korean: "기분", vietnamese: "tâm trạng, cảm xúc" },
+            { korean: "기본", vietnamese: "cơ bản" },
+            { korean: "전에", vietnamese: "trước đây" },
+            { korean: "안다", vietnamese: "mở" },
+            { korean: "열쇠", vietnamese: "chìa khóa" },
+            { korean: "오늘", vietnamese: "hôm nay" },
+            { korean: "번호", vietnamese: "số điện thoại" },
+            { korean: "옷걸이", vietnamese: "giá treo quần áo" },
+            { korean: "유지원", vietnamese: "máy móc, thiết bị" },
+            { korean: "지하다", vietnamese: "đến, làm" },
+            { korean: "지내다", vietnamese: "sống, cư trú" },
+            { korean: "알맞다", vietnamese: "phù hợp" },
+            { korean: "가지고 있다", vietnamese: "có" },
+            { korean: "오다", vietnamese: "đến" },
+            { korean: "좋다", vietnamese: "tốt, đẹp" },
+            { korean: "종이", vietnamese: "giấy" },
+            { korean: "가지고 가다", vietnamese: "mang theo" },
+            { korean: "있다", vietnamese: "có, ở" },
+            { korean: "돕다", vietnamese: "giúp đỡ" },
+            { korean: "부르다", vietnamese: "gọi, hát, mời" },
+            { korean: "곱다", vietnamese: "đẹp" },
+            { korean: "그만두다", vietnamese: "dừng, nghỉ" },
+            { korean: "뵙다", vietnamese: "gặp, thăm" },
+            { korean: "알추다", vietnamese: "bày tỏ, cho biết" },
+            { korean: "놀라다", vietnamese: "ngạc nhiên" },
+            { korean: "옷다", vietnamese: "mặc quần áo" },
+            { korean: "쉬다", vietnamese: "nghỉ" },
+            { korean: "연락", vietnamese: "liên lạc" },
+            { korean: "조용하다", vietnamese: "yên tĩnh" },
+            { korean: "여기다", vietnamese: "nghĩ, coi là" },
+            { korean: "일하다", vietnamese: "làm việc" },
+            { korean: "중요하다", vietnamese: "quan trọng" },
+            { korean: "공부하다", vietnamese: "học" },
+            { korean: "집", vietnamese: "nhà" },
+            { korean: "맞다", vietnamese: "đúng, hợp" },
+            { korean: "쉽다", vietnamese: "dễ" },
+            { korean: "원하다", vietnamese: "muốn" },
+            { korean: "바꾸다", vietnamese: "thay đổi" },
+            { korean: "다가가다", vietnamese: "tiến lại gần" },
+            { korean: "잘하다", vietnamese: "làm tốt" },
+            { korean: "여기", vietnamese: "đây" },
+            { korean: "잊다", vietnamese: "quên" },
+            { korean: "알아보다", vietnamese: "nhận ra" },
+            { korean: "기다리다", vietnamese: "chờ" },
+            { korean: "쓰다", vietnamese: "viết, dùng" },
+            { korean: "사다", vietnamese: "mua" },
+            { korean: "좋아하다", vietnamese: "thích" },
+            { korean: "도착하다", vietnamese: "đến nơi" },
+            { korean: "같이", vietnamese: "cùng nhau" },
+            { korean: "말하다", vietnamese: "nói" },
+            { korean: "보이다", vietnamese: "nhìn thấy" },
+            
+            // === Từ file Excel - Anh 1 ===
+            { korean: "식사", vietnamese: "bữa ăn" },
+            { korean: "보다", vietnamese: "xem" },
+            { korean: "예쁘다", vietnamese: "đẹp, xinh" },
+            { korean: "옷을 입다", vietnamese: "mặc quần áo" },
+            { korean: "이야기하다", vietnamese: "nói chuyện" },
+            { korean: "사과", vietnamese: "táo" },
+            { korean: "회사", vietnamese: "công ty" },
+            { korean: "직장", vietnamese: "nơi làm việc" },
+            { korean: "여행하다", vietnamese: "đi du lịch" },
+            { korean: "구경하다", vietnamese: "đi xem" },
+            { korean: "생각하다", vietnamese: "nghĩ" },
+            { korean: "오다", vietnamese: "đến" },
+            { korean: "혼자", vietnamese: "một mình" },
+            { korean: "다르다", vietnamese: "khác" },
+            { korean: "내리다", vietnamese: "xuống" },
+            { korean: "이야기", vietnamese: "câu chuyện" },
+            { korean: "가다", vietnamese: "đi" },
+            { korean: "가다 가다", vietnamese: "đi đi" },
+            { korean: "방문하다", vietnamese: "thăm, viếng" },
+            { korean: "안전하다", vietnamese: "an toàn" },
+            { korean: "없다", vietnamese: "không có" },
+            { korean: "만나다", vietnamese: "gặp" },
+            { korean: "방법", vietnamese: "cách làm" },
+            { korean: "버스", vietnamese: "xe buýt" },
+            { korean: "병원", vietnamese: "bệnh viện" },
+            { korean: "말하다", vietnamese: "nói" },
+            { korean: "생일", vietnamese: "ngày sinh nhật" },
+            { korean: "바꾸다", vietnamese: "thay đổi" },
+            { korean: "살다", vietnamese: "sống" },
+            { korean: "일찍", vietnamese: "sớm" },
+            { korean: "늦다", vietnamese: "muộn" },
+            { korean: "연락하다", vietnamese: "liên lạc" },
+            { korean: "예약하다", vietnamese: "đặt trước" },
+            { korean: "공부하다", vietnamese: "học" },
+            { korean: "쉬다", vietnamese: "nghỉ ngơi" },
+            { korean: "약속하다", vietnamese: "hẹn" },
+            { korean: "도와주다", vietnamese: "giúp đỡ" },
+            { korean: "사랑하다", vietnamese: "yêu" },
+            { korean: "친구", vietnamese: "bạn bè" },
+            { korean: "학교", vietnamese: "trường học" },
+            { korean: "집", vietnamese: "nhà" },
+            { korean: "가족", vietnamese: "gia đình" },
+            { korean: "음식", vietnamese: "thức ăn" },
+            { korean: "물", vietnamese: "nước" },
+            { korean: "돈", vietnamese: "tiền" },
+            { korean: "시간", vietnamese: "thời gian" },
+            { korean: "오후", vietnamese: "buổi chiều" },
+            { korean: "아침", vietnamese: "buổi sáng" },
+            
+            // === Từ file Excel - Anh 2 ===
+            { korean: "걱정하다", vietnamese: "lo lắng" },
+            { korean: "피곤하다", vietnamese: "mệt mỏi" },
+            { korean: "힘들다", vietnamese: "khó khăn" },
+            { korean: "기쁘다", vietnamese: "vui mừng" },
+            { korean: "슬프다", vietnamese: "buồn" },
+            { korean: "화나다", vietnamese: "tức giận" },
+            { korean: "놀라다", vietnamese: "ngạc nhiên" },
+            { korean: "두렵다", vietnamese: "sợ hãi" },
+            { korean: "배우다", vietnamese: "học" },
+            { korean: "가르치다", vietnamese: "dạy" },
+            { korean: "일하다", vietnamese: "làm việc" },
+            { korean: "쉬다", vietnamese: "nghỉ" },
+            { korean: "여행", vietnamese: "chuyến đi du lịch" },
+            { korean: "쇼핑", vietnamese: "mua sắm" },
+            { korean: "운동", vietnamese: "thể dục" },
+            { korean: "음악", vietnamese: "âm nhạc" },
+            { korean: "영화", vietnamese: "phim ảnh" },
+            { korean: "친절하다", vietnamese: "thân thiện" },
+            { korean: "착하다", vietnamese: "tốt bụng" },
+            { korean: "똑똑하다", vietnamese: "thông minh" },
+            { korean: "예쁘다", vietnamese: "xinh đẹp" },
+            { korean: "크다", vietnamese: "lớn" },
+            { korean: "작다", vietnamese: "nhỏ" },
+            { korean: "많다", vietnamese: "nhiều" },
+            { korean: "적다", vietnamese: "ít" },
+            { korean: "빠르다", vietnamese: "nhanh" },
+            { korean: "느리다", vietnamese: "chậm" },
+            { korean: "새롭다", vietnamese: "mới" },
+            { korean: "오래되다", vietnamese: "cũ, lâu năm" },
+            { korean: "싸다", vietnamese: "rẻ" },
+            { korean: "비싸다", vietnamese: "đắt" },
+            { korean: "맛있다", vietnamese: "ngon" },
+            { korean: "맛없다", vietnamese: "không ngon" },
+            { korean: "재미있다", vietnamese: "thú vị" },
+            { korean: "재미없다", vietnamese: "nhàm chán" },
+            { korean: "가능하다", vietnamese: "có thể" },
+            { korean: "불가능하다", vietnamese: "không thể" },
+            { korean: "괜찮다", vietnamese: "được, không sao" },
+            { korean: "반갑다", vietnamese: "vui được gặp" },
+            { korean: "미안하다", vietnamese: "xin lỗi" },
+            { korean: "고맙다", vietnamese: "cảm ơn" },
+            { korean: "축하하다", vietnamese: "chúc mừng" },
+            { korean: "생일", vietnamese: "ngày sinh nhật" },
+            { korean: "선물", vietnamese: "quà tặng" },
+            { korean: "친구", vietnamese: "bạn" },
+            { korean: "동생", vietnamese: "em trai/em gái" },
+            { korean: "언니", vietnamese: "chị gái" },
+            { korean: "오빠", vietnamese: "anh trai" },
+            { korean: "형", vietnamese: "anh trai" },
+            { korean: "누나", vietnamese: "chị gái" }
+        ];
 
-  <div class="telegram-note">
-    <span>📡 Tự động gửi Telegram • ID 8742603540</span>
-  </div>
-  <hr>
-  <div style="font-size:0.7rem; color:#6b6f8a; text-align:center;">Nhấn "Kiểm tra" → hiện kết quả → 1s sau tự động sang từ mới</div>
-</div>
+        let vocabulary = [...baseVocabulary];
+        let shuffledList = [];
+        let wrongWords = JSON.parse(localStorage.getItem('wrongWords') || '[]');
+        let stats = JSON.parse(localStorage.getItem('vocabStats') || '{"totalSessions":0,"totalCorrect":0,"totalWrong":0,"wrongCounts":{}}');
+        let currentIndex = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        let mode = 'kr-vn';
+        let isReviewMode = false;
 
-<script>
-  (function() {
-    // Cấu hình Telegram
-    const TELEGRAM_BOT_TOKEN = "8980322724:AAEbExHdPUgFMKjnSryNhcH4jvE5gMYCGHo";
-    const TELEGRAM_CHAT_ID = "8742603540";
-
-    // Trạng thái
-    let vocabulary = [];
-    let currentIndex = 0;
-    let userName = "";
-    let score = 0;
-    let totalAttempts = 0;
-    let autoTimer = null;
-    let isWaitingAuto = false;
-    let currentSource = 'combined';
-
-    // DOM
-    const usernameInput = document.getElementById("usernameInput");
-    const saveNameBtn = document.getElementById("saveNameBtn");
-    const displayNameSpan = document.getElementById("displayName");
-    const vietWordEl = document.getElementById("vietWord");
-    const koreanInput = document.getElementById("koreanInput");
-    const checkBtn = document.getElementById("checkBtn");
-    const fetchBtn = document.getElementById("fetchBtn");
-    const sourceSelect = document.getElementById("sourceSelect");
-    const sourceInfo = document.getElementById("sourceInfo");
-    const messageBox = document.getElementById("messageBox");
-    const progressText = document.getElementById("progressText");
-    const totalSources = document.getElementById("totalSources");
-    const totalWords = document.getElementById("totalWords");
-
-    // Gửi Telegram
-    async function sendToTelegram(message) {
-      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-      try {
-        await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'HTML' })
+        function shuffleArray(arr) {
+            const newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+        function saveData() {
+            localStorage.setItem('wrongWords', JSON.stringify(wrongWords));
+            localStorage.setItem('vocabStats', JSON.stringify(stats));
+        }
+        function toggleTheme() {
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            if (current === 'dark') {
+                body.removeAttribute('data-theme');
+                document.querySelector('.theme-toggle').textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            }
+        }
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                if (tabId === 'wrong') renderWrongList();
+                if (tabId === 'stats') renderStats();
+            });
         });
-      } catch (e) {}
-    }
-
-    // ==================== 120+ NGUỒN TỪ VỰNG ====================
-
-    // TOPIK các cấp độ
-    function getTOPIK1() {
-      return [
-        {v:"xin chào",k:"안녕하세요"},{v:"cảm ơn",k:"감사합니다"},{v:"xin lỗi",k:"죄송합니다"},
-        {v:"vâng",k:"네"},{v:"không",k:"아니요"},{v:"người",k:"사람"},{v:"tình yêu",k:"사랑"},
-        {v:"sách",k:"책"},{v:"nước",k:"물"},{v:"ăn",k:"먹다"},{v:"uống",k:"마시다"},
-        {v:"đi",k:"가다"},{v:"đến",k:"오다"},{v:"nhà",k:"집"},{v:"trường học",k:"학교"},
-        {v:"bạn bè",k:"친구"},{v:"thời gian",k:"시간"},{v:"hôm nay",k:"오늘"},{v:"ngày mai",k:"내일"},
-        {v:"hôm qua",k:"어제"},{v:"đẹp",k:"예쁘다"},{v:"tốt",k:"좋다"},{v:"xấu",k:"나쁘다"},
-        {v:"lớn",k:"크다"},{v:"nhỏ",k:"작다"},{v:"nhanh",k:"빠르다"},{v:"chậm",k:"느리다"},
-        {v:"mới",k:"새롭다"},{v:"cũ",k:"오래되다"},{v:"nóng",k:"덥다"},{v:"lạnh",k:"춥다"},
-        {v:"mua",k:"사다"},{v:"bán",k:"팔다"},{v:"học",k:"배우다"},{v:"dạy",k:"가르치다"},
-        {v:"đọc",k:"읽다"},{v:"viết",k:"쓰다"},{v:"nghe",k:"듣다"},{v:"nói",k:"말하다"}
-      ];
-    }
-
-    function getTOPIK2() {
-      return [
-        {v:"kinh nghiệm",k:"경험"},{v:"phát triển",k:"발전"},{v:"xã hội",k:"사회"},
-        {v:"văn hóa",k:"문화"},{v:"kinh tế",k:"경제"},{v:"chính trị",k:"정치"},
-        {v:"giáo dục",k:"교육"},{v:"khoa học",k:"과학"},{v:"công nghệ",k:"기술"},
-        {v:"môi trường",k:"환경"},{v:"sức khỏe",k:"건강"},{v:"hạnh phúc",k:"행복"},
-        {v:"tự do",k:"자유"},{v:"trách nhiệm",k:"책임"},{v:"cơ hội",k:"기회"},
-        {v:"thành công",k:"성공"},{v:"thất bại",k:"실패"},{v:"quyết định",k:"결정"}
-      ];
-    }
-
-    function getTOPIK3() {
-      return [
-        {v:"giao tiếp",k:"소통"},{v:"hợp tác",k:"협력"},{v:"nghiên cứu",k:"연구"},
-        {v:"phân tích",k:"분석"},{v:"đánh giá",k:"평가"},{v:"quản lý",k:"관리"},
-        {v:"chiến lược",k:"전략"},{v:"dự án",k:"프로젝트"},{v:"ngân sách",k:"예산"},
-        {v:"thị trường",k:"시장"},{v:"khách hàng",k:"고객"},{v:"đối tác",k:"파트너"}
-      ];
-    }
-
-    function getTOPIKAdvanced() {
-      return [
-        {v:"triết học",k:"철학"},{v:"tâm lý học",k:"심리학"},{v:"xã hội học",k:"사회학"},
-        {v:"nhân chủng học",k:"인류학"},{v:"kiến trúc",k:"건축"},{v:"văn minh",k:"문명"},
-        {v:"ý thức hệ",k:"이데올로기"},{v:"toàn cầu hóa",k:"세계화"},{v:"cách mạng",k:"혁명"}
-      ];
-    }
-
-    // TOPIK kỹ năng
-    function getTOPIKReading() {
-      return [
-        {v:"đọc hiểu",k:"독해"},{v:"đoạn văn",k:"글"},{v:"ý chính",k:"주제"},{v:"chi tiết",k:"세부"},
-        {v:"suy luận",k:"추론"},{v:"quan điểm",k:"관점"},{v:"thái độ",k:"태도"},{v:"mục đích",k:"목적"}
-      ];
-    }
-
-    function getTOPIKListening() {
-      return [
-        {v:"nghe hiểu",k:"듣기"},{v:"hội thoại",k:"대화"},{v:"thông báo",k:"안내"},{v:"tin tức",k:"뉴스"},
-        {v:"phỏng vấn",k:"인터뷰"},{v:"thuyết trình",k:"발표"},{v:"giảng giải",k:"설명"},{v:"tranh luận",k:"토론"}
-      ];
-    }
-
-    function getTOPIKWriting() {
-      return [
-        {v:"viết",k:"쓰기"},{v:"bài luận",k:"에세이"},{v:"mở bài",k:"서론"},{v:"thân bài",k:"본론"},
-        {v:"kết luận",k:"결론"},{v:"lập dàn ý",k:"개요"},{v:"phát triển ý",k:"전개"},{v:"biểu đạt",k:"표현"}
-      ];
-    }
-
-    function getTOPIKSpeaking() {
-      return [
-        {v:"nói",k:"말하기"},{v:"phát âm",k:"발음"},{v:"ngữ điệu",k:"억양"},{v:"tốc độ",k:"속도"},
-        {v:"tự tin",k:"자신감"},{v:"lưu loát",k:"유창함"},{v:"tương tác",k:"상호 작용"},{v:"diễn đạt",k:"표현"}
-      ];
-    }
-
-    function getTOPIKGrammar() {
-      return [
-        {v:"ngữ pháp",k:"문법"},{v:"chủ ngữ",k:"주어"},{v:"vị ngữ",k:"술어"},{v:"tân ngữ",k:"목적어"},
-        {v:"trạng ngữ",k:"부사"},{v:"định ngữ",k:"관형어"},{v:"bổ ngữ",k:"보어"},{v:"câu đơn",k:"단문"}
-      ];
-    }
-
-    // Đời sống hàng ngày
-    function getDaily() {
-      return [
-        {v:"thức dậy",k:"일어나다"},{v:"đánh răng",k:"양치하다"},{v:"tắm",k:"샤워하다"},
-        {v:"ăn sáng",k:"아침을 먹다"},{v:"đi làm",k:"출근하다"},{v:"làm việc",k:"일하다"}
-      ];
-    }
-
-    function getDailyAdvanced() {
-      return [
-        {v:"nghỉ trưa",k:"점심 휴식"},{v:"tan làm",k:"퇴근하다"},{v:"về nhà",k:"집에 가다"},
-        {v:"nấu ăn",k:"요리하다"},{v:"xem TV",k:"TV를 보다"},{v:"đọc sách",k:"책을 읽다"}
-      ];
-    }
-
-    function getFamily() {
-      return [
-        {v:"gia đình",k:"가족"},{v:"cha",k:"아버지"},{v:"mẹ",k:"어머니"},{v:"anh trai",k:"형"},
-        {v:"chị gái",k:"누나"},{v:"em trai",k:"남동생"},{v:"em gái",k:"여동생"},{v:"ông bà",k:"조부모"}
-      ];
-    }
-
-    function getHouse() {
-      return [
-        {v:"nhà",k:"집"},{v:"phòng",k:"방"},{v:"phòng khách",k:"거실"},{v:"phòng ngủ",k:"침실"},
-        {v:"nhà bếp",k:"주방"},{v:"phòng tắm",k:"욕실"},{v:"ban công",k:"베란다"},{v:"sân",k:"마당"}
-      ];
-    }
-
-    function getShopping() {
-      return [
-        {v:"mua sắm",k:"쇼핑"},{v:"cửa hàng",k:"가게"},{v:"trung tâm mua sắm",k:"쇼핑몰"},
-        {v:"siêu thị",k:"슈퍼마켓"},{v:"chợ",k:"시장"},{v:"giá cả",k:"가격"},{v:"khuyến mãi",k:"할인"}
-      ];
-    }
-
-    function getWeather() {
-      return [
-        {v:"thời tiết",k:"날씨"},{v:"mưa",k:"비"},{v:"tuyết",k:"눈"},{v:"gió",k:"바람"},
-        {v:"nóng",k:"덥다"},{v:"lạnh",k:"춥다"},{v:"ấm áp",k:"따뜻하다"},{v:"mát mẻ",k:"시원하다"}
-      ];
-    }
-
-    function getSeason() {
-      return [
-        {v:"mùa xuân",k:"봄"},{v:"mùa hè",k:"여름"},{v:"mùa thu",k:"가을"},{v:"mùa đông",k:"겨울"},
-        {v:"hoa anh đào",k:"벚꽃"},{v:"lá vàng",k:"단풍"},{v:"tuyết rơi",k:"눈이 오다"}
-      ];
-    }
-
-    function getTime() {
-      return [
-        {v:"thời gian",k:"시간"},{v:"giây",k:"초"},{v:"phút",k:"분"},{v:"giờ",k:"시"},
-        {v:"ngày",k:"일"},{v:"tuần",k:"주"},{v:"tháng",k:"월"},{v:"năm",k:"년"}
-      ];
-    }
-
-    function getNumber() {
-      return [
-        {v:"một",k:"일"},{v:"hai",k:"이"},{v:"ba",k:"삼"},{v:"bốn",k:"사"},
-        {v:"năm",k:"오"},{v:"sáu",k:"육"},{v:"bảy",k:"칠"},{v:"tám",k:"팔"},{v:"chín",k:"구"},{v:"mười",k:"십"}
-      ];
-    }
-
-    function getColor() {
-      return [
-        {v:"đỏ",k:"빨간색"},{v:"xanh dương",k:"파란색"},{v:"xanh lá",k:"초록색"},{v:"vàng",k:"노란색"},
-        {v:"trắng",k:"흰색"},{v:"đen",k:"검은색"},{v:"hồng",k:"분홍색"},{v:"tím",k:"보라색"},{v:"cam",k:"주황색"}
-      ];
-    }
-
-    // Kinh doanh
-    function getBusiness() {
-      return [
-        {v:"kinh doanh",k:"비즈니스"},{v:"công ty",k:"회사"},{v:"giám đốc",k:"사장"},
-        {v:"nhân viên",k:"직원"},{v:"phòng ban",k:"부서"},{v:"họp",k:"회의"}
-      ];
-    }
-
-    function getOffice() {
-      return [
-        {v:"văn phòng",k:"사무실"},{v:"bàn làm việc",k:"책상"},{v:"máy tính",k:"컴퓨터"},
-        {v:"máy in",k:"프린터"},{v:"giấy",k:"종이"},{v:"bút",k:"펜"},{v:"tài liệu",k:"서류"}
-      ];
-    }
-
-    function getManagement() {
-      return [
-        {v:"quản lý",k:"관리"},{v:"lãnh đạo",k:"리더십"},{v:"điều hành",k:"운영"},{v:"kiểm soát",k:"통제"},
-        {v:"đánh giá",k:"평가"},{v:"cải tiến",k:"개선"},{v:"hiệu quả",k:"효율"},{v:"năng suất",k:"생산성"}
-      ];
-    }
-
-    function getMarketing() {
-      return [
-        {v:"tiếp thị",k:"마케팅"},{v:"quảng cáo",k:"광고"},{v:"thương hiệu",k:"브랜드"},
-        {v:"khách hàng",k:"고객"},{v:"thị trường",k:"시장"},{v:"chiến lược",k:"전략"}
-      ];
-    }
-
-    function getFinance() {
-      return [
-        {v:"tài chính",k:"금융"},{v:"đầu tư",k:"투자"},{v:"lợi nhuận",k:"이익"},{v:"doanh số",k:"매출"},
-        {v:"vốn",k:"자본"},{v:"cổ phiếu",k:"주식"},{v:"trái phiếu",k:"채권"},{v:"ngân hàng",k:"은행"}
-      ];
-    }
-
-    function getAccounting() {
-      return [
-        {v:"kế toán",k:"회계"},{v:"sổ sách",k:"장부"},{v:"thu chi",k:"수입 지출"},{v:"hóa đơn",k:"송장"},
-        {v:"thuế",k:"세금"},{v:"kiểm toán",k:"감사"},{v:"báo cáo tài chính",k:"재무제표"}
-      ];
-    }
-
-    function getHR() {
-      return [
-        {v:"nhân sự",k:"인사"},{v:"tuyển dụng",k:"채용"},{v:"đào tạo",k:"교육"},{v:"lương",k:"급여"},
-        {v:"thăng tiến",k:"승진"},{v:"đánh giá",k:"평가"},{v:"phúc lợi",k:"복지"},{v:"nghỉ phép",k:"휴가"}
-      ];
-    }
-
-    function getITWork() {
-      return [
-        {v:"công nghệ",k:"기술"},{v:"phát triển",k:"개발"},{v:"lập trình",k:"프로그래밍"},
-        {v:"hệ thống",k:"시스템"},{v:"dữ liệu",k:"데이터"},{v:"bảo mật",k:"보안"}
-      ];
-    }
-
-    // Học thuật
-    function getAcademic() {
-      return [
-        {v:"nghiên cứu",k:"연구"},{v:"lý thuyết",k:"이론"},{v:"thực tiễn",k:"실제"},
-        {v:"phương pháp",k:"방법"},{v:"phân tích",k:"분석"},{v:"tổng hợp",k:"종합"}
-      ];
-    }
-
-    function getScience() {
-      return [
-        {v:"khoa học",k:"과학"},{v:"thí nghiệm",k:"실험"},{v:"quan sát",k:"관찰"},{v:"giả thuyết",k:"가설"},
-        {v:"dữ liệu",k:"데이터"},{v:"kết luận",k:"결론"},{v:"công thức",k:"공식"}
-      ];
-    }
-
-    function getMath() {
-      return [
-        {v:"toán học",k:"수학"},{v:"số",k:"숫자"},{v:"phép tính",k:"계산"},{v:"cộng",k:"더하기"},
-        {v:"trừ",k:"빼기"},{v:"nhân",k:"곱하기"},{v:"chia",k:"나누기"},{v:"phân số",k:"분수"}
-      ];
-    }
-
-    function getPhysics() {
-      return [
-        {v:"vật lý",k:"물리학"},{v:"chuyển động",k:"운동"},{v:"lực",k:"힘"},{v:"năng lượng",k:"에너지"},
-        {v:"khối lượng",k:"질량"},{v:"vận tốc",k:"속도"},{v:"gia tốc",k:"가속도"},{v:"sóng",k:"파동"}
-      ];
-    }
-
-    function getChemistry() {
-      return [
-        {v:"hóa học",k:"화학"},{v:"nguyên tử",k:"원자"},{v:"phân tử",k:"분자"},{v:"hợp chất",k:"화합물"},
-        {v:"phản ứng",k:"반응"},{v:"dung dịch",k:"용액"},{v:"axit",k:"산"},{v:"kiềm",k:"염기"}
-      ];
-    }
-
-    function getBiology() {
-      return [
-        {v:"sinh học",k:"생물학"},{v:"tế bào",k:"세포"},{v:"gen",k:"유전자"},{v:"tiến hóa",k:"진화"},
-        {v:"sinh vật",k:"생물"},{v:"môi trường sống",k:"서식지"},{v:"loài",k:"종"},{v:"hệ sinh thái",k:"생태계"}
-      ];
-    }
-
-    function getAstronomy() {
-      return [
-        {v:"thiên văn học",k:"천문학"},{v:"vũ trụ",k:"우주"},{v:"ngôi sao",k:"별"},{v:"hành tinh",k:"행성"},
-        {v:"mặt trăng",k:"달"},{v:"mặt trời",k:"태양"},{v:"thiên hà",k:"은하"},{v:"lỗ đen",k:"블랙홀"}
-      ];
-    }
-
-    function getGeography() {
-      return [
-        {v:"địa lý",k:"지리학"},{v:"bản đồ",k:"지도"},{v:"núi",k:"산"},{v:"sông",k:"강"},{v:"biển",k:"바다"},
-        {v:"đại dương",k:"대양"},{v:"lục địa",k:"대륙"},{v:"khí hậu",k:"기후"},{v:"địa hình",k:"지형"}
-      ];
-    }
-
-    function getHistory() {
-      return [
-        {v:"lịch sử",k:"역사"},{v:"thời kỳ",k:"시대"},{v:"sự kiện",k:"사건"},{v:"văn minh",k:"문명"},
-        {v:"văn hóa",k:"문화"},{v:"di sản",k:"유산"},{v:"nhân vật",k:"인물"},{v:"chiến tranh",k:"전쟁"}
-      ];
-    }
-
-    function getPhilosophy() {
-      return [
-        {v:"triết học",k:"철학"},{v:"tư tưởng",k:"사상"},{v:"logic",k:"논리"},{v:"đạo đức",k:"윤리"},
-        {v:"tồn tại",k:"존재"},{v:"chân lý",k:"진리"},{v:"tri thức",k:"지식"},{v:"nhận thức",k:"인식"}
-      ];
-    }
-
-    function getPsychology() {
-      return [
-        {v:"tâm lý học",k:"심리학"},{v:"hành vi",k:"행동"},{v:"cảm xúc",k:"감정"},{v:"suy nghĩ",k:"생각"},
-        {v:"tính cách",k:"성격"},{v:"trí nhớ",k:"기억"},{v:"giấc mơ",k:"꿈"},{v:"vô thức",k:"무의식"}
-      ];
-    }
-
-    function getSociology() {
-      return [
-        {v:"xã hội học",k:"사회학"},{v:"xã hội",k:"사회"},{v:"cấu trúc",k:"구조"},{v:"giai cấp",k:"계층"},
-        {v:"bất bình đẳng",k:"불평등"},{v:"văn hóa",k:"문화"},{v:"cộng đồng",k:"공동체"},{v:"xã hội hóa",k:"사회화"}
-      ];
-    }
-
-    function getLinguistics() {
-      return [
-        {v:"ngôn ngữ học",k:"언어학"},{v:"ngôn ngữ",k:"언어"},{v:"âm vị",k:"음운"},{v:"từ vựng",k:"어휘"},
-        {v:"cú pháp",k:"통사"},{v:"ngữ nghĩa",k:"의미"},{v:"pragmatics",k:"화용"},{v:"ngôn ngữ học",k:"언어학"}
-      ];
-    }
-
-    function getLiterature() {
-      return [
-        {v:"văn học",k:"문학"},{v:"thơ",k:"시"},{v:"truyện",k:"소설"},{v:"kịch",k:"희곡"},
-        {v:"tiểu thuyết",k:"장편 소설"},{v:"truyện ngắn",k:"단편 소설"},{v:"tác giả",k:"작가"},{v:"nhân vật",k:"인물"}
-      ];
-    }
-
-    // Y tế
-    function getMedical() {
-      return [
-        {v:"bệnh viện",k:"병원"},{v:"bác sĩ",k:"의사"},{v:"y tá",k:"간호사"},{v:"bệnh nhân",k:"환자"},
-        {v:"khám bệnh",k:"진료"},{v:"điều trị",k:"치료"},{v:"thuốc",k:"약"},{v:"tiêm",k:"주사"}
-      ];
-    }
-
-    function getHospital() {
-      return [
-        {v:"khoa",k:"과"},{v:"phòng cấp cứu",k:"응급실"},{v:"phòng phẫu thuật",k:"수술실"},
-        {v:"phòng bệnh",k:"병실"},{v:"quầy thuốc",k:"약국"},{v:"xét nghiệm",k:"검사"},{v:"chẩn đoán",k:"진단"}
-      ];
-    }
-
-    function getDisease() {
-      return [
-        {v:"bệnh",k:"질병"},{v:"cảm cúm",k:"감기"},{v:"đau đầu",k:"두통"},{v:"đau bụng",k:"복통"},
-        {v:"sốt",k:"열"},{v:"ho",k:"기침"},{v:"dị ứng",k:"알레르기"},{v:"tiểu đường",k:"당뇨병"}
-      ];
-    }
-
-    function getMedicine() {
-      return [
-        {v:"thuốc",k:"약"},{v:"viên thuốc",k:"약"},{v:"siro",k:"시럽"},{v:"thuốc mỡ",k:"연고"},
-        {v:"kháng sinh",k:"항생제"},{v:"giảm đau",k:"진통제"},{v:"hạ sốt",k:"해열제"},{v:"vitamin",k:"비타민"}
-      ];
-    }
-
-    function getFirstAid() {
-      return [
-        {v:"sơ cứu",k:"응급 처치"},{v:"băng",k:"붕대"},{v:"băng gạc",k:"거즈"},{v:"cồn",k:"알코올"},
-        {v:"oxy già",k:"과산화수소"},{v:"đá lạnh",k:"얼음"},{v:"ép",k:"압박"},{v:"nâng cao",k:"높이"}
-      ];
-    }
-
-    function getMentalHealth() {
-      return [
-        {v:"sức khỏe tinh thần",k:"정신 건강"},{v:"trầm cảm",k:"우울증"},{v:"lo âu",k:"불안"},{v:"căng thẳng",k:"스트레스"},
-        {v:"hạnh phúc",k:"행복"},{v:"tích cực",k:"긍정적"},{v:"thiền",k:"명상"},{v:"thư giãn",k:"이완"}
-      ];
-    }
-
-    function getNutrition() {
-      return [
-        {v:"dinh dưỡng",k:"영양"},{v:"protein",k:"단백질"},{v:"carbohydrate",k:"탄수화물"},
-        {v:"chất béo",k:"지방"},{v:"vitamin",k:"비타민"},{v:"khoáng chất",k:"미네랄"},{v:"chất xơ",k:"섬유질"}
-      ];
-    }
-
-    function getFitness() {
-      return [
-        {v:"thể hình",k:"피트니스"},{v:"tập tạ",k:"웨이트 트레이닝"},{v:"cardio",k:"유산소 운동"},
-        {v:"duỗi cơ",k:"스트레칭"},{v:"cơ bắp",k:"근육"},{v:"sức bền",k:"지구력"},{v:"sức mạnh",k:"파워"}
-      ];
-    }
-
-    // Pháp lý
-    function getLegal() {
-      return [
-        {v:"luật",k:"법"},{v:"luật sư",k:"변호사"},{v:"thẩm phán",k:"판사"},{v:"tòa án",k:"법원"},
-        {v:"tố tụng",k:"소송"},{v:"bằng chứng",k:"증거"},{v:"nhân chứng",k:"증인"},{v:"tội phạm",k:"범죄"}
-      ];
-    }
-
-    function getLawCourt() {
-      return [
-        {v:"phiên tòa",k:"재판"},{v:"hội đồng xét xử",k:"배심원"},{v:"bồi thẩm đoàn",k:"배심원단"},
-        {v:"công tố",k:"기소"},{v:"bào chữa",k:"변호"},{v:"tuyên án",k:"선고"},{v:"kháng cáo",k:"항소"}
-      ];
-    }
-
-    function getCriminal() {
-      return [
-        {v:"hình sự",k:"형사"},{v:"trộm cắp",k:"절도"},{v:"cướp",k:"강도"},{v:"giết người",k:"살인"},
-        {v:"lừa đảo",k:"사기"},{v:"tham nhũng",k:"부패"},{v:"hối lộ",k:"뇌물"},{v:"tù",k:"감옥"}
-      ];
-    }
-
-    function getCivil() {
-      return [
-        {v:"dân sự",k:"민사"},{v:"hợp đồng",k:"계약"},{v:"thỏa thuận",k:"합의"},{v:"tranh chấp",k:"분쟁"},
-        {v:"bồi thường",k:"배상"},{v:"bảo hiểm",k:"보험"},{v:"sở hữu",k:"소유권"},{v:"thừa kế",k:"상속"}
-      ];
-    }
-
-    function getGovernment() {
-      return [
-        {v:"chính phủ",k:"정부"},{v:"quốc hội",k:"국회"},{v:"tổng thống",k:"대통령"},{v:"thủ tướng",k:"총리"},
-        {v:"bộ",k:"부처"},{v:"hành chính",k:"행정"},{v:"chính sách",k:"정책"},{v:"thuế",k:"세금"}
-      ];
-    }
-
-    function getPolitics() {
-      return [
-        {v:"chính trị",k:"정치"},{v:"đảng phái",k:"정당"},{v:"bầu cử",k:"선거"},{v:"phiếu bầu",k:"투표"},
-        {v:"vận động",k:"운동"},{v:"tranh cử",k:"출마"},{v:"đối lập",k:"야당"},{v:"cầm quyền",k:"여당"}
-      ];
-    }
-
-    function getDiplomacy() {
-      return [
-        {v:"ngoại giao",k:"외교"},{v:"đại sứ",k:"대사"},{v:"lãnh sự",k:"영사"},{v:"hiệp ước",k:"조약"},
-        {v:"đàm phán",k:"협상"},{v:"quan hệ quốc tế",k:"국제 관계"},{v:"hòa bình",k:"평화"}
-      ];
-    }
-
-    function getInternational() {
-      return [
-        {v:"quốc tế",k:"국제"},{v:"toàn cầu",k:"글로벌"},{v:"khu vực",k:"지역"},{v:"thế giới",k:"세계"},
-        {v:"liên hợp quốc",k:"유엔"},{v:"tổ chức",k:"기구"},{v:"hiệp định",k:"협정"},{v:"hợp tác",k:"협력"}
-      ];
-    }
-
-    // Du lịch
-    function getTravel() {
-      return [
-        {v:"du lịch",k:"여행"},{v:"khách sạn",k:"호텔"},{v:"sân bay",k:"공항"},{v:"vé",k:"티켓"},
-        {v:"hành lý",k:"수하물"},{v:"hộ chiếu",k:"여권"},{v:"visa",k:"비자"},{v:"máy bay",k:"비행기"}
-      ];
-    }
-
-    function getHotel() {
-      return [
-        {v:"lễ tân",k:"프런트"},{v:"phòng",k:"객실"},{v:"đặt phòng",k:"예약"},{v:"check-in",k:"체크인"},
-        {v:"check-out",k:"체크아웃"},{v:"dịch vụ",k:"서비스"},{v:"tiện nghi",k:"편의 시설"},{v:"bữa sáng",k:"조식"}
-      ];
-    }
-
-    function getAirport() {
-      return [
-        {v:"nhà ga",k:"터미널"},{v:"lên máy bay",k:"탑승"},{v:"xuống máy bay",k:"하차"},{v:"hải quan",k:"세관"},
-        {v:"kiểm tra",k:"검사"},{v:"xuất cảnh",k:"출국"},{v:"nhập cảnh",k:"입국"},{v:"quá cảnh",k:"환승"}
-      ];
-    }
-
-    function getTourism() {
-      return [
-        {v:"tham quan",k:"관광"},{v:"hướng dẫn viên",k:"가이드"},{v:"lịch trình",k:"일정"},{v:"địa điểm",k:"장소"},
-        {v:"di tích",k:"유적지"},{v:"bảo tàng",k:"박물관"},{v:"công viên",k:"공원"},{v:"chụp ảnh",k:"사진 촬영"}
-      ];
-    }
-
-    function getCulture() {
-      return [
-        {v:"văn hóa",k:"문화"},{v:"nghệ thuật",k:"예술"},{v:"âm nhạc",k:"음악"},{v:"khiêu vũ",k:"춤"},
-        {v:"trang phục",k:"의상"},{v:"ẩm thực",k:"요리"},{v:"kiến trúc",k:"건축"},{v:"phong tục",k:"관습"}
-      ];
-    }
-
-    function getFestival() {
-      return [
-        {v:"lễ hội",k:"축제"},{v:"diễu hành",k:"퍼레이드"},{v:"biểu diễn",k:"공연"},{v:"đèn lồng",k:"등불"},
-        {v:"pháo hoa",k:"불꽃놀이"},{v:"múa",k:"춤"},{v:"trò chơi",k:"게임"},{v:"ẩm thực",k:"음식 축제"}
-      ];
-    }
-
-    function getTradition() {
-      return [
-        {v:"truyền thống",k:"전통"},{v:"hanbok",k:"한복"},{v:"kim chi",k:"김치"},{v:"bánh gạo",k:"떡"},
-        {v:"chữ Hán",k:"한자"},{v:"tết",k:"설날"},{v:"lễ tạ ơn",k:"추석"},{v:"lễ hội",k:"명절"}
-      ];
-    }
-
-    function getReligion() {
-      return [
-        {v:"tôn giáo",k:"종교"},{v:"Phật giáo",k:"불교"},{v:"Kitô giáo",k:"기독교"},{v:"Hồi giáo",k:"이슬람"},
-        {v:"đền",k:"사원"},{v:"nhà thờ",k:"교회"},{v:"thánh đường",k:"성당"},{v:"cầu nguyện",k:"기도"}
-      ];
-    }
-
-    // Ẩm thực
-    function getFood() {
-      return [
-        {v:"kim chi",k:"김치"},{v:"cơm",k:"밥"},{v:"mì",k:"국수"},{v:"súp",k:"국"},{v:"thịt",k:"고기"},
-        {v:"cá",k:"생선"},{v:"rau",k:"야채"},{v:"trái cây",k:"과일"},{v:"gà",k:"닭"},{v:"lợn",k:"돼지"}
-      ];
-    }
-
-    function getKoreanFood() {
-      return [
-        {v:"bibimbap",k:"비빔밥"},{v:"bulgogi",k:"불고기"},{v:"galbi",k:"갈비"},{v:"samgyeopsal",k:"삼겹살"},
-        {v:"kimchi jjigae",k:"김치찌개"},{v:"doenjang jjigae",k:"된장찌개"},{v:"sundubu jjigae",k:"순두부찌개"}
-      ];
-    }
-
-    function getCooking() {
-      return [
-        {v:"nấu",k:"요리하다"},{v:"chiên",k:"튀기다"},{v:"hấp",k:"찌다"},{v:"nướng",k:"굽다"},
-        {v:"luộc",k:"삶다"},{v:"xào",k:"볶다"},{v:"trộn",k:"비비다"},{v:"cắt",k:"자르다"},{v:"băm",k:"다지다"}
-      ];
-    }
-
-    function getRestaurant() {
-      return [
-        {v:"nhà hàng",k:"식당"},{v:"thực đơn",k:"메뉴"},{v:"gọi món",k:"주문하다"},{v:"thanh toán",k:"계산하다"},
-        {v:"phục vụ",k:"서빙"},{v:"bàn",k:"테이블"},{v:"ghế",k:"의자"},{v:"khăn ăn",k:"냅킨"},{v:"đũa",k:"젓가락"}
-      ];
-    }
-
-    function getDrink() {
-      return [
-        {v:"nước",k:"물"},{v:"cà phê",k:"커피"},{v:"trà",k:"차"},{v:"sữa",k:"우유"},{v:"nước trái cây",k:"주스"},
-        {v:"bia",k:"맥주"},{v:"rượu",k:"술"},{v:"soju",k:"소주"},{v:"makgeolli",k:"막걸리"}
-      ];
-    }
-
-    function getDessert() {
-      return [
-        {v:"kem",k:"아이스크림"},{v:"bánh",k:"케이크"},{v:"kẹo",k:"사탕"},{v:"socola",k:"초콜릿"},
-        {v:"bánh quy",k:"쿠키"},{v:"donut",k:"도넛"},{v:"macaron",k:"마카롱"},{v:"pudding",k:"푸딩"}
-      ];
-    }
-
-    // Thể thao
-    function getSports() {
-      return [
-        {v:"thể thao",k:"스포츠"},{v:"bóng đá",k:"축구"},{v:"bóng chày",k:"야구"},{v:"bóng rổ",k:"농구"},
-        {v:"bóng chuyền",k:"배구"},{v:"tennis",k:"테니스"},{v:"bơi lội",k:"수영"},{v:"chạy",k:"달리기"}
-      ];
-    }
-
-    function getFootball() {
-      return [
-        {v:"sân bóng",k:"축구장"},{v:"cầu thủ",k:"선수"},{v:"huấn luyện viên",k:"코치"},{v:"trọng tài",k:"심판"},
-        {v:"bàn thắng",k:"골"},{v:"kiến tạo",k:"도움"},{v:"thẻ vàng",k:"옐로카드"},{v:"thẻ đỏ",k:"레드카드"}
-      ];
-    }
-
-    function getBaseball() {
-      return [
-        {v:"sân bóng chày",k:"야구장"},{v:"người ném bóng",k:"투수"},{v:"người đánh bóng",k:"타자"},{v:"bắt bóng",k:"포수"},
-        {v:"home run",k:"홈런"},{v:"cú đánh",k:"안타"},{v:"lỗi",k:"에러"},{v:"hiệp",k:"이닝"}
-      ];
-    }
-
-    function getBasketball() {
-      return [
-        {v:"sân bóng rổ",k:"농구장"},{v:"ném",k:"슛"},{v:"chuyền",k:"패스"},{v:"dẫn bóng",k:"드리블"},
-        {v:"rebound",k:"리바운드"},{v:"phạm lỗi",k:"파울"},{v:"thời gian",k:"시간"},{v:"điểm",k:"점수"}
-      ];
-    }
-
-    function getSwimming() {
-      return [
-        {v:"bơi lội",k:"수영"},{v:"bể bơi",k:"수영장"},{v:"bơi ếch",k:"개구리 수영"},{v:"bơi sải",k:"자유형"},
-        {v:"bơi bướm",k:"접영"},{v:"bơi ngửa",k:"배영"},{v:"bơi hỗn hợp",k:"혼영"},{v:"lặn",k:"다이빙"}
-      ];
-    }
-
-    function getMartialArts() {
-      return [
-        {v:"võ thuật",k:"무술"},{v:"taekwondo",k:"태권도"},{v:"hapkido",k:"합기도"},{v:"judo",k:"유도"},
-        {v:"karate",k:"가라테"},{v:"kendo",k:"검도"},{v:"võ sĩ",k:"선수"},{v:"đai",k:"띠"},{v:"kỹ thuật",k:"기술"}
-      ];
-    }
-
-    function getEsports() {
-      return [
-        {v:"esports",k:"이스포츠"},{v:"game",k:"게임"},{v:"đấu sĩ",k:"선수"},{v:"giải đấu",k:"대회"},
-        {v:"chiến thắng",k:"승리"},{v:"thất bại",k:"패배"},{v:"chiến thuật",k:"전략"},{v:"kỹ năng",k:"실력"}
-      ];
-    }
-
-    function getEntertainment() {
-      return [
-        {v:"giải trí",k:"엔터테인먼트"},{v:"phim",k:"영화"},{v:"âm nhạc",k:"음악"},{v:"trò chơi",k:"게임"},
-        {v:"chương trình",k:"프로그램"},{v:"biểu diễn",k:"공연"},{v:"diễn viên",k:"배우"},{v:"khán giả",k:"관객"}
-      ];
-    }
-
-    function getMusic() {
-      return [
-        {v:"âm nhạc",k:"음악"},{v:"bài hát",k:"노래"},{v:"giai điệu",k:"멜로디"},{v:"nhịp điệu",k:"리듬"},
-        {v:"hợp âm",k:"화음"},{v:"ca sĩ",k:"가수"},{v:"ban nhạc",k:"밴드"},{v:"dàn nhạc",k:"오케스트라"}
-      ];
-    }
-
-    function getDance() {
-      return [
-        {v:"khiêu vũ",k:"춤"},{v:"vũ công",k:"댄서"},{v:"vũ đạo",k:"안무"},{v:"sàn nhảy",k:"무대"},
-        {v:"hip-hop",k:"힙합"},{v:"ballet",k:"발레"},{v:"salsa",k:"살사"},{v:"tango",k:"탱고"}
-      ];
-    }
-
-    function getMovie() {
-      return [
-        {v:"phim",k:"영화"},{v:"rạp chiếu phim",k:"영화관"},{v:"đạo diễn",k:"감독"},{v:"diễn viên",k:"배우"},
-        {v:"kịch bản",k:"대본"},{v:"cảnh",k:"장면"},{v:"lời thoại",k:"대사"},{v:"hành động",k:"액션"}
-      ];
-    }
-
-    function getDrama() {
-      return [
-        {v:"phim truyền hình",k:"드라마"},{v:"tập phim",k:"에피소드"},{v:"series",k:"시리즈"},
-        {v:"nhân vật",k:"캐릭터"},{v:"tình huống",k:"상황"},{v:"kịch tính",k:"극적"},{v:"cảm xúc",k:"감정"}
-      ];
-    }
-
-    function getKPop() {
-      return [
-        {v:"K-pop",k:"케이팝"},{v:"idol",k:"아이돌"},{v:"bảng xếp hạng",k:"차트"},{v:"album",k:"앨범"},
-        {v:"single",k:"싱글"},{v:"fan",k:"팬"},{v:"concert",k:"콘서트"},{v:"biểu diễn",k:"무대"}
-      ];
-    }
-
-    // Nghệ thuật
-    function getArt() {
-      return [
-        {v:"nghệ thuật",k:"예술"},{v:"hội họa",k:"회화"},{v:"điêu khắc",k:"조각"},{v:"kiến trúc",k:"건축"},
-        {v:"nhiếp ảnh",k:"사진"},{v:"thiết kế",k:"디자인"},{v:"thủ công",k:"공예"},{v:"trang trí",k:"장식"}
-      ];
-    }
-
-    function getPainting() {
-      return [
-        {v:"hội họa",k:"미술"},{v:"tranh",k:"그림"},{v:"màu nước",k:"수채화"},{v:"sơn dầu",k:"유화"},
-        {v:"bút chì",k:"연필"},{v:"bút vẽ",k:"붓"},{v:"canvas",k:"캔버스"},{v:"màu",k:"색"}      
-      ];
-    }
-
-    function getDesign() {
-      return [
-        {v:"thiết kế",k:"디자인"},{v:"đồ họa",k:"그래픽"},{v:"màu sắc",k:"색상"},{v:"bố cục",k:"구성"},
-        {v:"phông chữ",k:"폰트"},{v:"hình ảnh",k:"이미지"},{v:"logo",k:"로고"},{v:"thương hiệu",k:"브랜드"}
-      ];
-    }
-
-    function getPhotography() {
-      return [
-        {v:"nhiếp ảnh",k:"사진"},{v:"máy ảnh",k:"카메라"},{v:"ống kính",k:"렌즈"},{v:"ánh sáng",k:"조명"},
-        {v:"phơi sáng",k:"노출"},{v:"khung hình",k:"프레임"},{v:"chụp ảnh",k:"사진 촬영"},{v:"ảnh",k:"사진"}
-      ];
-    }
-
-    function getArchitecture() {
-      return [
-        {v:"kiến trúc",k:"건축"},{v:"tòa nhà",k:"건물"},{v:"thiết kế",k:"설계"},{v:"cấu trúc",k:"구조"},
-        {v:"cột",k:"기둥"},{v:"mái",k:"지붕"},{v:"cửa sổ",k:"창문"},{v:"cửa",k:"문"},{v:"cầu thang",k:"계단"}
-      ];
-    }
-
-    function getFashion() {
-      return [
-        {v:"thời trang",k:"패션"},{v:"quần áo",k:"의류"},{v:"giày",k:"신발"},{v:"túi xách",k:"가방"},
-        {v:"trang sức",k:"장신구"},{v:"mũ",k:"모자"},{v:"phụ kiện",k:"액세서리"},{v:"thương hiệu",k:"브랜드"}
-      ];
-    }
-
-    // Nguồn chính thống
-    function getSejong() {
-      return [
-        {v:"ngôn ngữ",k:"언어"},{v:"văn hóa",k:"문화"},{v:"truyền thông",k:"소통"},{v:"giáo dục",k:"교육"},
-        {v:"học tập",k:"학습"},{v:"giảng dạy",k:"교수"},{v:"từ điển",k:"사전"},{v:"ngữ pháp",k:"문법"}
-      ];
-    }
-
-    function getKoreanGovernment() {
-      return [
-        {v:"quốc gia",k:"국가"},{v:"chính phủ",k:"정부"},{v:"quốc hội",k:"국회"},{v:"tổng thống",k:"대통령"},
-        {v:"thủ tướng",k:"총리"},{v:"bộ",k:"부처"},{v:"tỉnh",k:"도"},{v:"thành phố",k:"시"}
-      ];
-    }
-
-    function getKoreanEdu() {
-      return [
-        {v:"giáo dục",k:"교육"},{v:"trường học",k:"학교"},{v:"đại học",k:"대학"},{v:"học sinh",k:"학생"},
-        {v:"giáo viên",k:"교사"},{v:"giáo sư",k:"교수"},{v:"môn học",k:"과목"},{v:"bằng cấp",k:"학위"}
-      ];
-    }
-
-    function getKBS() {
-      return [
-        {v:"tin tức",k:"뉴스"},{v:"chương trình",k:"프로그램"},{v:"phát sóng",k:"방송"},{v:"phóng viên",k:"기자"},
-        {v:"buổi phát sóng",k:"방송"},{v:"người dẫn chương trình",k:"진행자"},{v:"phỏng vấn",k:"인터뷰"}
-      ];
-    }
-
-    function getMBC() {
-      return [
-        {v:"truyền hình",k:"TV"},{v:"đài truyền hình",k:"방송국"},{v:"giải trí",k:"오락"},{v:"thể thao",k:"스포츠"},
-        {v:"thời tiết",k:"날씨"},{v:"xã hội",k:"사회"},{v:"văn hóa",k:"문화"}
-      ];
-    }
-
-    function getYTN() {
-      return [
-        {v:"báo chí",k:"언론"},{v:"phóng sự",k:"보도"},{v:"bài báo",k:"기사"},{v:"tường thuật",k:"리포트"},
-        {v:"tin tức 24h",k:"24시간 뉴스"},{v:"trực tiếp",k:"생방송"},{v:"bình luận",k:"논평"}
-      ];
-    }
-
-    function getNaver() {
-      return [
-        {v:"tìm kiếm",k:"검색"},{v:"từ điển",k:"사전"},{v:"dịch",k:"번역"},{v:"thông tin",k:"정보"},
-        {v:"dữ liệu",k:"데이터"},{v:"ứng dụng",k:"앱"},{v:"web",k:"웹"},{v:"học tập",k:"학습"}
-      ];
-    }
-
-    function getDaum() {
-      return [
-        {v:"cổng thông tin",k:"포털"},{v:"tìm kiếm",k:"검색"},{v:"từ điển",k:"사전"},{v:"bản đồ",k:"지도"},
-        {v:"blog",k:"블로그"},{v:"cộng đồng",k:"커뮤니티"},{v:"dịch vụ",k:"서비스"},{v:"sự kiện",k:"이벤트"}
-      ];
-    }
-
-    function getPapago() {
-      return [
-        {v:"dịch thuật",k:"번역"},{v:"dịch máy",k:"기계 번역"},{v:"ngôn ngữ",k:"언어"},{v:"câu",k:"문장"},
-        {v:"từ",k:"단어"},{v:"cụm từ",k:"구절"},{v:"phát âm",k:"발음"},{v:"ngữ pháp",k:"문법"}
-      ];
-    }
-
-    // Báo chí
-    function getNews() {
-      return [
-        {v:"tin tức",k:"뉴스"},{v:"báo",k:"신문"},{v:"tạp chí",k:"잡지"},{v:"phóng viên",k:"기자"},
-        {v:"biên tập",k:"편집"},{v:"bài viết",k:"기사"},{v:"tiêu đề",k:"제목"},{v:"nội dung",k:"내용"}
-      ];
-    }
-
-    function getNewspaper() {
-      return [
-        {v:"báo in",k:"인쇄 신문"},{v:"báo điện tử",k:"전자 신문"},{v:"trang bìa",k:"표지"},{v:"chuyên mục",k:"칼럼"},
-        {v:"phóng sự",k:"특집"},{v:"bình luận",k:"논평"},{v:"thư độc giả",k:"독자 편지"}
-      ];
-    }
-
-    function getBroadcast() {
-      return [
-        {v:"phát thanh",k:"방송"},{v:"radio",k:"라디오"},{v:"truyền hình",k:"텔레비전"},{v:"chương trình",k:"프로그램"},
-        {v:"người dẫn",k:"진행자"},{v:"khách mời",k:"게스트"},{v:"trực tiếp",k:"생방송"},{v:"ghi hình",k:"녹화"}
-      ];
-    }
-
-    function getJournalism() {
-      return [
-        {v:"báo chí",k:"저널리즘"},{v:"tin tức",k:"뉴스"},{v:"phỏng vấn",k:"인터뷰"},{v:"điều tra",k:"취재"},
-        {v:"nguồn tin",k:"소스"},{v:"sự thật",k:"사실"},{v:"khách quan",k:"객관적"},{v:"công bằng",k:"공정"}
-      ];
-    }
-
-    function getSocialMedia() {
-      return [
-        {v:"mạng xã hội",k:"소셜 미디어"},{v:"post",k:"게시물"},{v:"like",k:"좋아요"},{v:"share",k:"공유"},
-        {v:"comment",k:"댓글"},{v:"follow",k:"팔로우"},{v:"trending",k:"트렌드"},{v:"viral",k:"바이럴"}
-      ];
-    }
-
-    function getAdvertising() {
-      return [
-        {v:"quảng cáo",k:"광고"},{v:"marketing",k:"마케팅"},{v:"thương hiệu",k:"브랜드"},{v:"khách hàng",k:"고객"},
-        {v:"chiến dịch",k:"캠페인"},{v:"truyền thông",k:"미디어"},{v:"hiệu quả",k:"효과"},{v:"nhận diện",k:"인지도"}
-      ];
-    }
-
-    // Kỹ thuật
-    function getEngineering() {
-      return [
-        {v:"kỹ thuật",k:"공학"},{v:"thiết kế",k:"설계"},{v:"xây dựng",k:"건설"},{v:"cơ khí",k:"기계"},
-        {v:"điện",k:"전기"},{v:"điện tử",k:"전자"},{v:"kiểm tra",k:"테스트"},{v:"bảo trì",k:"유지보수"}
-      ];
-    }
-
-    function getConstruction() {
-      return [
-        {v:"xây dựng",k:"건설"},{v:"công trình",k:"공사"},{v:"vật liệu",k:"자재"},{v:"kết cấu",k:"구조"},
-        {v:"móng",k:"기초"},{v:"tường",k:"벽"},{v:"cột",k:"기둥"},{v:"dầm",k:"보"},{v:"sàn",k:"바닥"}
-      ];
-    }
-
-    function getElectricity() {
-      return [
-        {v:"điện",k:"전기"},{v:"điện tử",k:"전자"},{v:"mạch",k:"회로"},{v:"dòng điện",k:"전류"},
-        {v:"điện áp",k:"전압"},{v:"công suất",k:"전력"},{v:"dây điện",k:"전선"},{v:"bóng đèn",k:"전구"}
-      ];
-    }
-
-    function getMechanical() {
-      return [
-        {v:"cơ khí",k:"기계"},{v:"động cơ",k:"엔진"},{v:"máy",k:"기계"},{v:"bánh răng",k:"기어"},
-        {v:"trục",k:"축"},{v:"piston",k:"피스톤"},{v:"xi-lanh",k:"실린더"},{v:"van",k:"밸브"}
-      ];
-    }
-
-    function getCivilEng() {
-      return [
-        {v:"xây dựng dân dụng",k:"토목 공학"},{v:"cầu",k:"다리"},{v:"đường",k:"도로"},{v:"đê",k:"제방"},
-        {v:"kênh",k:"운하"},{v:"hầm",k:"터널"},{v:"cảng",k:"항만"},{v:"nền móng",k:"기초 공사"}
-      ];
-    }
-
-    function getArchitect() {
-      return [
-        {v:"kiến trúc sư",k:"건축가"},{v:"thiết kế",k:"설계"},{v:"bản vẽ",k:"도면"},{v:"mô hình",k:"모형"},
-        {v:"thẩm mỹ",k:"미학"},{v:"công năng",k:"기능"},{v:"không gian",k:"공간"},{v:"ánh sáng",k:"조명"}
-      ];
-    }
-
-    // Giao thông
-    function getTransport() {
-      return [
-        {v:"giao thông",k:"교통"},{v:"xe hơi",k:"자동차"},{v:"xe buýt",k:"버스"},{v:"tàu điện",k:"지하철"},
-        {v:"tàu hỏa",k:"기차"},{v:"máy bay",k:"비행기"},{v:"tàu thủy",k:"배"},{v:"xe đạp",k:"자전거"}
-      ];
-    }
-
-    function getCar() {
-      return [
-        {v:"ô tô",k:"자동차"},{v:"động cơ",k:"엔진"},{v:"bánh xe",k:"바퀴"},{v:"vô lăng",k:"핸들"},
-        {v:"phanh",k:"브레이크"},{v:"ga",k:"액셀레이터"},{v:"đèn",k:"라이트"},{v:"gương",k:"미러"}
-      ];
-    }
-
-    function getPublicTransport() {
-      return [
-        {v:"vận tải công cộng",k:"대중 교통"},{v:"xe buýt",k:"버스"},{v:"tàu điện ngầm",k:"지하철"},
-        {v:"tram",k:"트램"},{v:"vé",k:"티켓"},{v:"trạm",k:"역"},{v:"lịch trình",k:"시간표"},{v:"tuyến",k:"노선"}
-      ];
-    }
-
-    function getShipping() {
-      return [
-        {v:"vận tải biển",k:"해운"},{v:"tàu hàng",k:"화물선"},{v:"container",k:"컨테이너"},{v:"cảng",k:"항구"},
-        {v:"bến",k:"부두"},{v:"hải quan",k:"세관"},{v:"vận chuyển",k:"운송"},{v:"hàng hóa",k:"화물"}
-      ];
-    }
-
-    function getAviation() {
-      return [
-        {v:"hàng không",k:"항공"},{v:"máy bay",k:"비행기"},{v:"phi công",k:"조종사"},{v:"sân bay",k:"공항"},
-        {v:"chuyến bay",k:"항공편"},{v:"hành khách",k:"승객"},{v:"phi hành",k:"비행"},{v:"hạ cánh",k:"착륙"}
-      ];
-    }
-
-    // Công nghệ
-    function getTechnology() {
-      return [
-        {v:"công nghệ",k:"기술"},{v:"máy tính",k:"컴퓨터"},{v:"điện thoại",k:"휴대폰"},{v:"mạng",k:"네트워크"},
-        {v:"phần mềm",k:"소프트웨어"},{v:"phần cứng",k:"하드웨어"},{v:"dữ liệu",k:"데이터"},{v:"bảo mật",k:"보안"}
-      ];
-    }
-
-    function getProgramming() {
-      return [
-        {v:"lập trình",k:"프로그래밍"},{v:"mã",k:"코드"},{v:"ngôn ngữ",k:"언어"},{v:"hàm",k:"함수"},
-        {v:"biến",k:"변수"},{v:"vòng lặp",k:"반복문"},{v:"điều kiện",k:"조건문"},{v:"thuật toán",k:"알고리즘"}
-      ];
-    }
-
-    function getWeb() {
-      return [
-        {v:"web",k:"웹"},{v:"website",k:"웹사이트"},{v:"trang",k:"페이지"},{v:"url",k:"URL"},
-        {v:"html",k:"HTML"},{v:"css",k:"CSS"},{v:"javascript",k:"자바스크립트"},{v:"server",k:"서버"}
-      ];
-    }
-
-    function getMobile() {
-      return [
-        {v:"di động",k:"모바일"},{v:"ứng dụng",k:"앱"},{v:"android",k:"안드로이드"},{v:"ios",k:"iOS"},
-        {v:"màn hình",k:"화면"},{v:"cảm ứng",k:"터치"},{v:"pin",k:"배터리"},{v:"mạng",k:"네트워크"}
-      ];
-    }
-
-    function getAI() {
-      return [
-        {v:"trí tuệ nhân tạo",k:"인공지능"},{v:"học máy",k:"머신러닝"},{v:"deep learning",k:"딥러닝"},
-        {v:"neural network",k:"신경망"},{v:"dữ liệu",k:"데이터"},{v:"thuật toán",k:"알고리즘"},{v:"dự đoán",k:"예측"}
-      ];
-    }
-
-    function getCybersecurity() {
-      return [
-        {v:"an ninh mạng",k:"사이버 보안"},{v:"mã hóa",k:"암호화"},{v:"phần mềm độc hại",k:"악성 소프트웨어"},
-        {v:"virus",k:"바이러스"},{v:"tường lửa",k:"방화벽"},{v:"hacker",k:"해커"},{v:"bảo vệ",k:"보호"}
-      ];
-    }
-
-    function getCloud() {
-      return [
-        {v:"điện toán đám mây",k:"클라우드 컴퓨팅"},{v:"lưu trữ",k:"저장"},{v:"dịch vụ",k:"서비스"},
-        {v:"server",k:"서버"},{v:"dữ liệu",k:"데이터"},{v:"sao lưu",k:"백업"},{v:"khôi phục",k:"복구"}
-      ];
-    }
-
-    function getDatabase() {
-      return [
-        {v:"cơ sở dữ liệu",k:"데이터베이스"},{v:"bảng",k:"테이블"},{v:"truy vấn",k:"쿼리"},{v:"lưu trữ",k:"저장"},
-        {v:"chỉ mục",k:"인덱스"},{v:"khóa",k:"키"},{v:"quản lý",k:"관리"},{v:"bảo mật",k:"보안"}
-      ];
-    }
-
-    // Môi trường
-    function getEnvironment() {
-      return [
-        {v:"môi trường",k:"환경"},{v:"ô nhiễm",k:"오염"},{v:"rác thải",k:"쓰레기"},{v:"tái chế",k:"재활용"},
-        {v:"bảo vệ",k:"보호"},{v:"bền vững",k:"지속 가능"},{v:"sinh thái",k:"생태"},{v:"bảo tồn",k:"보존"}
-      ];
-    }
-
-    function getEcology() {
-      return [
-        {v:"sinh thái học",k:"생태학"},{v:"hệ sinh thái",k:"생태계"},{v:"loài",k:"종"},{v:"quần thể",k:"개체군"},
-        {v:"chuỗi thức ăn",k:"먹이사슬"},{v:"môi trường sống",k:"서식지"},{v:"đa dạng",k:"다양성"}
-      ];
-    }
-
-    function getClimate() {
-      return [
-        {v:"khí hậu",k:"기후"},{v:"biến đổi khí hậu",k:"기후 변화"},{v:"nóng lên",k:"온난화"},{v:"hiệu ứng nhà kính",k:"온실 효과"},
-        {v:"thời tiết",k:"날씨"},{v:"nhiệt độ",k:"온도"},{v:"mưa",k:"비"},{v:"gió",k:"바람"}
-      ];
-    }
-
-    function getRenewable() {
-      return [
-        {v:"năng lượng tái tạo",k:"재생 에너지"},{v:"mặt trời",k:"태양"},{v:"gió",k:"바람"},{v:"nước",k:"물"},
-        {v:"sinh khối",k:"바이오매스"},{v:"địa nhiệt",k:"지열"},{v:"thủy điện",k:"수력"},{v:"pin mặt trời",k:"태양 전지"}
-      ];
-    }
-
-    function getConservation() {
-      return [
-        {v:"bảo tồn",k:"보존"},{v:"động vật",k:"동물"},{v:"thực vật",k:"식물"},{v:"thiên nhiên",k:"자연"},
-        {v:"khu bảo tồn",k:"보호 구역"},{v:"loài nguy cấp",k:"멸종 위기 종"},{v:"rừng",k:"숲"},{v:"biển",k:"바다"}
-      ];
-    }
-
-    function getPollution() {
-      return [
-        {v:"ô nhiễm",k:"오염"},{v:"không khí",k:"공기"},{v:"nước",k:"물"},{v:"đất",k:"땅"},
-        {v:"tiếng ồn",k:"소음"},{v:"ánh sáng",k:"빛"},{v:"chất thải",k:"폐기물"},{v:"khí thải",k:"배출가스"}
-      ];
-    }
-
-    // Tâm linh
-    function getEmotion() {
-      return [
-        {v:"cảm xúc",k:"감정"},{v:"vui",k:"기쁘다"},{v:"buồn",k:"슬프다"},{v:"tức giận",k:"화나다"},
-        {v:"sợ",k:"두렵다"},{v:"bình tĩnh",k:"차분하다"},{v:"hạnh phúc",k:"행복하다"},{v:"yêu",k:"사랑하다"}
-      ];
-    }
-
-    function getMindset() {
-      return [
-        {v:"tư duy",k:"사고"},{v:"suy nghĩ",k:"생각"},{v:"tích cực",k:"긍정적"},{v:"tiêu cực",k:"부정적"},
-        {v:"tự tin",k:"자신감"},{v:"lạc quan",k:"낙관적"},{v:"bi quan",k:"비관적"},{v:"sáng tạo",k:"창의적"}
-      ];
-    }
-
-    function getMeditation() {
-      return [
-        {v:"thiền",k:"명상"},{v:"yoga",k:"요가"},{v:"hít thở",k:"호흡"},{v:"thư giãn",k:"이완"},
-        {v:"tập trung",k:"집중"},{v:"chánh niệm",k:"마음챙김"},{v:"tĩnh lặng",k:"고요"},{v:"nội tâm",k:"내면"}
-      ];
-    }
-
-    function getSpiritual() {
-      return [
-        {v:"tâm linh",k:"영적"},{v:"tín ngưỡng",k:"신앙"},{v:"cầu nguyện",k:"기도"},{v:"sám hối",k:"참회"},
-        {v:"tha thứ",k:"용서"},{v:"lòng trắc ẩn",k:"자비"},{v:"tình yêu thương",k:"사랑"},{v:"hy vọng",k:"희망"}
-      ];
-    }
-
-    function getLove() {
-      return [
-        {v:"tình yêu",k:"사랑"},{v:"lãng mạn",k:"로맨스"},{v:"hẹn hò",k:"데이트"},{v:"kết hôn",k:"결혼"},
-        {v:"tình bạn",k:"우정"},{v:"tình cảm",k:"애정"},{v:"sự ấm áp",k:"온정"},{v:"sự quan tâm",k:"관심"}
-      ];
-    }
-
-    function getFriendship() {
-      return [
-        {v:"tình bạn",k:"우정"},{v:"bạn thân",k:"절친"},{v:"tín nhiệm",k:"신뢰"},{v:"trung thành",k:"충성"},
-        {v:"chia sẻ",k:"공유"},{v:"thông cảm",k:"이해"},{v:"giúp đỡ",k:"도움"},{v:"ủng hộ",k:"지원"}
-      ];
-    }
-
-    // Kỹ năng sống
-    function getSkill() {
-      return [
-        {v:"kỹ năng",k:"기술"},{v:"học tập",k:"학습"},{v:"phát triển",k:"개발"},{v:"cải thiện",k:"향상"},
-        {v:"thực hành",k:"연습"},{v:"kinh nghiệm",k:"경험"},{v:"thành thạo",k:"숙련"},{v:"chuyên môn",k:"전문성"}
-      ];
-    }
-
-    function getLeadership() {
-      return [
-        {v:"lãnh đạo",k:"리더십"},{v:"quản lý",k:"경영"},{v:"tầm nhìn",k:"비전"},{v:"truyền cảm hứng",k:"영감"},
-        {v:"ra quyết định",k:"의사 결정"},{v:"trách nhiệm",k:"책임"},{v:"động lực",k:"동기"},{v:"dẫn dắt",k:"지도"}
-      ];
-    }
-
-    function getTeamwork() {
-      return [
-        {v:"làm việc nhóm",k:"팀워크"},{v:"hợp tác",k:"협력"},{v:"giao tiếp",k:"의사소통"},{v:"chia sẻ",k:"공유"},
-        {v:"hỗ trợ",k:"지원"},{v:"đồng đội",k:"동료"},{v:"mục tiêu chung",k:"공동 목표"},{v:"thành công",k:"성공"}
-      ];
-    }
-
-    function getProblemSolving() {
-      return [
-        {v:"giải quyết vấn đề",k:"문제 해결"},{v:"phân tích",k:"분석"},{v:"sáng tạo",k:"창의력"},{v:"tư duy",k:"사고"},
-        {v:"giải pháp",k:"해결책"},{v:"thực hiện",k:"실행"},{v:"đánh giá",k:"평가"},{v:"cải tiến",k:"개선"}
-      ];
-    }
-
-    function getCommunication() {
-      return [
-        {v:"giao tiếp",k:"의사소통"},{v:"nói",k:"말하기"},{v:"nghe",k:"듣기"},{v:"viết",k:"쓰기"},
-        {v:"đọc",k:"읽기"},{v:"ngôn ngữ cơ thể",k:"신체 언어"},{v:"biểu cảm",k:"표현"},{v:"thuyết phục",k:"설득"}
-      ];
-    }
-
-    function getTimeManagement() {
-      return [
-        {v:"quản lý thời gian",k:"시간 관리"},{v:"lên kế hoạch",k:"계획"},{v:"ưu tiên",k:"우선 순위"},
-        {v:"deadline",k:"마감"},{v:"hiệu quả",k:"효율"},{v:"năng suất",k:"생산성"},{v:"cân bằng",k:"균형"}
-      ];
-    }
-
-    // ==================== HÀM LẤY TỪ VỰNG ====================
-
-    function getVocabularyBySource(source) {
-      const sources = {
-        'topik1': getTOPIK1, 'topik2': getTOPIK2, 'topik3': getTOPIK3, 'topik_advanced': getTOPIKAdvanced,
-        'topik_reading': getTOPIKReading, 'topik_listening': getTOPIKListening,
-        'topik_writing': getTOPIKWriting, 'topik_speaking': getTOPIKSpeaking, 'topik_grammar': getTOPIKGrammar,
-        'daily': getDaily, 'daily_advanced': getDailyAdvanced, 'family': getFamily, 'house': getHouse,
-        'shopping': getShopping, 'weather': getWeather, 'season': getSeason, 'time': getTime,
-        'number': getNumber, 'color': getColor,
-        'business': getBusiness, 'office': getOffice, 'management': getManagement,
-        'marketing': getMarketing, 'finance': getFinance, 'accounting': getAccounting,
-        'hr': getHR, 'it_work': getITWork,
-        'academic': getAcademic, 'science': getScience, 'math': getMath,
-        'physics': getPhysics, 'chemistry': getChemistry, 'biology': getBiology,
-        'astronomy': getAstronomy, 'geography': getGeography, 'history': getHistory,
-        'philosophy': getPhilosophy, 'psychology': getPsychology, 'sociology': getSociology,
-        'linguistics': getLinguistics, 'literature': getLiterature,
-        'medical': getMedical, 'hospital': getHospital, 'disease': getDisease,
-        'medicine': getMedicine, 'firstaid': getFirstAid, 'mental_health': getMentalHealth,
-        'nutrition': getNutrition, 'fitness': getFitness,
-        'legal': getLegal, 'law_court': getLawCourt, 'criminal': getCriminal,
-        'civil': getCivil, 'government': getGovernment, 'politics': getPolitics,
-        'diplomacy': getDiplomacy, 'international': getInternational,
-        'travel': getTravel, 'hotel': getHotel, 'airport': getAirport, 'tourism': getTourism,
-        'culture': getCulture, 'festival': getFestival, 'tradition': getTradition, 'religion': getReligion,
-        'food': getFood, 'korean_food': getKoreanFood, 'cooking': getCooking,
-        'restaurant': getRestaurant, 'drink': getDrink, 'dessert': getDessert,
-        'sports': getSports, 'football': getFootball, 'baseball': getBaseball,
-        'basketball': getBasketball, 'swimming': getSwimming, 'martial_arts': getMartialArts,
-        'esports': getEsports, 'entertainment': getEntertainment, 'music': getMusic,
-        'dance': getDance, 'movie': getMovie, 'drama': getDrama, 'kpop': getKPop,
-        'art': getArt, 'painting': getPainting, 'design': getDesign,
-        'photography': getPhotography, 'architecture': getArchitecture, 'fashion': getFashion,
-        'sejong': getSejong, 'korean_government': getKoreanGovernment,
-        'korean_edu': getKoreanEdu, 'kbs': getKBS, 'mbc': getMBC, 'ytn': getYTN,
-        'naver': getNaver, 'daum': getDaum, 'papago': getPapago,
-        'news': getNews, 'newspaper': getNewspaper, 'broadcast': getBroadcast,
-        'journalism': getJournalism, 'social_media': getSocialMedia, 'advertising': getAdvertising,
-        'engineering': getEngineering, 'construction': getConstruction,
-        'electricity': getElectricity, 'mechanical': getMechanical,
-        'civil_eng': getCivilEng, 'architect': getArchitect,
-        'transport': getTransport, 'car': getCar, 'public_transport': getPublicTransport,
-        'shipping': getShipping, 'aviation': getAviation,
-        'technology': getTechnology, 'programming': getProgramming, 'web': getWeb,
-        'mobile': getMobile, 'ai': getAI, 'cybersecurity': getCybersecurity,
-        'cloud': getCloud, 'database': getDatabase,
-        'environment': getEnvironment, 'ecology': getEcology, 'climate': getClimate,
-        'renewable': getRenewable, 'conservation': getConservation, 'pollution': getPollution,
-        'emotion': getEmotion, 'mindset': getMindset, 'meditation': getMeditation,
-        'spiritual': getSpiritual, 'love': getLove, 'friendship': getFriendship,
-        'skill': getSkill, 'leadership': getLeadership, 'teamwork': getTeamwork,
-        'problem_solving': getProblemSolving, 'communication': getCommunication,
-        'time_management': getTimeManagement
-      };
-
-      if (sources[source]) {
-        return sources[source]();
-      }
-
-      return generateCombinedVocabulary();
-    }
-
-    // Tạo 10.000 từ tổng hợp từ tất cả các nguồn
-    function generateCombinedVocabulary() {
-      const allFunctions = [
-        getTOPIK1, getTOPIK2, getTOPIK3, getTOPIKAdvanced,
-        getTOPIKReading, getTOPIKListening, getTOPIKWriting, getTOPIKSpeaking, getTOPIKGrammar,
-        getDaily, getDailyAdvanced, getFamily, getHouse, getShopping, getWeather, getSeason, getTime, getNumber, getColor,
-        getBusiness, getOffice, getManagement, getMarketing, getFinance, getAccounting, getHR, getITWork,
-        getAcademic, getScience, getMath, getPhysics, getChemistry, getBiology, getAstronomy,
-        getGeography, getHistory, getPhilosophy, getPsychology, getSociology, getLinguistics, getLiterature,
-        getMedical, getHospital, getDisease, getMedicine, getFirstAid, getMentalHealth, getNutrition, getFitness,
-        getLegal, getLawCourt, getCriminal, getCivil, getGovernment, getPolitics, getDiplomacy, getInternational,
-        getTravel, getHotel, getAirport, getTourism, getCulture, getFestival, getTradition, getReligion,
-        getFood, getKoreanFood, getCooking, getRestaurant, getDrink, getDessert,
-        getSports, getFootball, getBaseball, getBasketball, getSwimming, getMartialArts,
-        getEsports, getEntertainment, getMusic, getDance, getMovie, getDrama, getKPop,
-        getArt, getPainting, getDesign, getPhotography, getArchitecture, getFashion,
-        getSejong, getKoreanGovernment, getKoreanEdu, getKBS, getMBC, getYTN, getNaver, getDaum, getPapago,
-        getNews, getNewspaper, getBroadcast, getJournalism, getSocialMedia, getAdvertising,
-        getEngineering, getConstruction, getElectricity, getMechanical, getCivilEng, getArchitect,
-        getTransport, getCar, getPublicTransport, getShipping, getAviation,
-        getTechnology, getProgramming, getWeb, getMobile, getAI, getCybersecurity, getCloud, getDatabase,
-        getEnvironment, getEcology, getClimate, getRenewable, getConservation, getPollution,
-        getEmotion, getMindset, getMeditation, getSpiritual, getLove, getFriendship,
-        getSkill, getLeadership, getTeamwork, getProblemSolving, getCommunication, getTimeManagement
-      ];
-
-      let allWords = [];
-      allFunctions.forEach(func => {
-        allWords = allWords.concat(func());
-      });
-
-      let words = [];
-      while (words.length < 10000) {
-        for (let word of allWords) {
-          if (words.length >= 10000) break;
-          words.push({ vietnamese: word.v, korean: word.k });
+        function setMode(newMode) {
+            mode = newMode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            document.getElementById('mode-label').textContent = mode === 'kr-vn' ? '한 → Việt' : 'Việt → 한';
+            restart();
         }
-        if (words.length < 10000) {
-          for (let word of allWords) {
-            if (words.length >= 10000) break;
-            words.push({ vietnamese: word.v + " (lặp)", korean: word.k });
-          }
+        function speakWord() {
+            if (!window.speechSynthesis) return;
+            const word = shuffledList[currentIndex].korean;
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'ko-KR';
+            utterance.rate = 0.8;
+            window.speechSynthesis.speak(utterance);
         }
-      }
-      return words.slice(0, 10000);
-    }
-
-    // ==================== CÁC HÀM CHÍNH ====================
-
-    function clearAutoTimer() {
-      if (autoTimer) {
-        clearTimeout(autoTimer);
-        autoTimer = null;
-      }
-      isWaitingAuto = false;
-    }
-
-    function setUIWaiting(waiting) {
-      if (waiting) {
-        koreanInput.disabled = true;
-        checkBtn.disabled = true;
-      } else {
-        koreanInput.disabled = false;
-        checkBtn.disabled = false;
-      }
-    }
-
-    function renderCurrentWord() {
-      clearAutoTimer();
-      setUIWaiting(false);
-      if (!vocabulary.length || currentIndex >= vocabulary.length) {
-        vietWordEl.textContent = "🎯 Hoàn thành!";
-        koreanInput.disabled = true;
-        checkBtn.disabled = true;
-        messageBox.innerHTML = "🏆 Bạn đã chinh phục tất cả từ vựng!";
-        messageBox.className = "message-box info-msg";
-        progressText.textContent = `📚 ${vocabulary.length} / ${vocabulary.length}`;
-        return;
-      }
-      const word = vocabulary[currentIndex];
-      vietWordEl.textContent = word.vietnamese;
-      koreanInput.value = "";
-      koreanInput.focus();
-      messageBox.innerHTML = "⌨️ Nhập tiếng Hàn rồi nhấn Kiểm tra";
-      messageBox.className = "message-box info-msg";
-      progressText.textContent = `📚 ${currentIndex + 1} / ${vocabulary.length}`;
-    }
-
-    function moveToNextWord() {
-      clearAutoTimer();
-      if (currentIndex < vocabulary.length - 1) {
-        currentIndex++;
-        renderCurrentWord();
-      } else if (currentIndex === vocabulary.length - 1) {
-        currentIndex++;
-        renderCurrentWord();
-        if (userName) sendToTelegram(`🏁 <b>${userName}</b> hoàn thành! Điểm: ${score}/${totalAttempts}`);
-      } else {
-        renderCurrentWord();
-      }
-    }
-
-    function scheduleAutoNext(delayMs = 1000) {
-      clearAutoTimer();
-      isWaitingAuto = true;
-      setUIWaiting(true);
-      autoTimer = setTimeout(() => {
-        moveToNextWord();
-      }, delayMs);
-    }
-
-    function checkAnswer() {
-      if (isWaitingAuto) return;
-      if (!vocabulary.length || currentIndex >= vocabulary.length) return;
-      if (!userName) {
-        alert("Vui lòng nhập tên trước khi kiểm tra!");
-        usernameInput.focus();
-        return;
-      }
-
-      const userAnswer = koreanInput.value.trim();
-      if (userAnswer === "") {
-        messageBox.innerHTML = "⚠️ Hãy nhập từ tiếng Hàn trước khi kiểm tra.";
-        messageBox.className = "message-box error-msg";
-        return;
-      }
-
-      const correctKorean = vocabulary[currentIndex].korean.trim();
-      totalAttempts++;
-
-      if (userAnswer === correctKorean) {
-        score++;
-        messageBox.innerHTML = `✅ OK! Chính xác! 🎉 (Đúng: ${correctKorean})`;
-        messageBox.className = "message-box success-msg";
-        sendToTelegram(`✅ <b>${userName}</b> ĐÚNG: ${vocabulary[currentIndex].vietnamese} → ${correctKorean} (${currentIndex+1}/${vocabulary.length})`);
-      } else {
-        messageBox.innerHTML = `❌ Sai rồi! Đáp án: ${correctKorean}`;
-        messageBox.className = "message-box error-msg";
-        sendToTelegram(`❌ <b>${userName}</b> SAI: ${vocabulary[currentIndex].vietnamese} → nhập "${userAnswer}" (đúng: ${correctKorean})`);
-      }
-
-      scheduleAutoNext(1000);
-    }
-
-    function fetchVocabulary() {
-      const source = sourceSelect.value;
-      currentSource = source;
-      
-      const sourceNames = {
-        'combined': 'Tổng hợp 10.000 từ',
-        'topik_all': 'TOPIK I+II (tổng hợp)',
-        'topik1': 'TOPIK I - Sơ cấp 1',
-        'topik2': 'TOPIK II - Trung cấp 1',
-        'topik3': 'TOPIK II - Trung cấp 2',
-        'topik_advanced': 'TOPIK II - Cao cấp',
-        'topik_reading': 'TOPIK Đọc hiểu',
-        'topik_listening': 'TOPIK Nghe hiểu',
-        'topik_writing': 'TOPIK Viết',
-        'topik_speaking': 'TOPIK Nói',
-        'topik_grammar': 'TOPIK Ngữ pháp',
-        'daily': 'Hàng ngày',
-        'daily_advanced': 'Hàng ngày (nâng cao)',
-        'family': 'Gia đình',
-        'house': 'Nhà cửa',
-        'shopping': 'Mua sắm',
-        'weather': 'Thời tiết',
-        'season': 'Các mùa',
-        'time': 'Thời gian',
-        'number': 'Số đếm',
-        'color': 'Màu sắc',
-        'business': 'Kinh doanh',
-        'office': 'Văn phòng',
-        'management': 'Quản lý',
-        'marketing': 'Tiếp thị',
-        'finance': 'Tài chính',
-        'accounting': 'Kế toán',
-        'hr': 'Nhân sự',
-        'it_work': 'IT - Công nghệ',
-        'academic': 'Học thuật',
-        'science': 'Khoa học',
-        'math': 'Toán học',
-        'physics': 'Vật lý',
-        'chemistry': 'Hóa học',
-        'biology': 'Sinh học',
-        'astronomy': 'Thiên văn',
-        'geography': 'Địa lý',
-        'history': 'Lịch sử',
-        'philosophy': 'Triết học',
-        'psychology': 'Tâm lý học',
-        'sociology': 'Xã hội học',
-        'linguistics': 'Ngôn ngữ học',
-        'literature': 'Văn học',
-        'medical': 'Y tế tổng hợp',
-        'hospital': 'Bệnh viện',
-        'disease': 'Bệnh tật',
-        'medicine': 'Thuốc',
-        'firstaid': 'Sơ cứu',
-        'mental_health': 'Sức khỏe tinh thần',
-        'nutrition': 'Dinh dưỡng',
-        'fitness': 'Thể hình',
-        'legal': 'Pháp lý',
-        'law_court': 'Tòa án',
-        'criminal': 'Hình sự',
-        'civil': 'Dân sự',
-        'government': 'Chính phủ',
-        'politics': 'Chính trị',
-        'diplomacy': 'Ngoại giao',
-        'international': 'Quốc tế',
-        'travel': 'Du lịch',
-        'hotel': 'Khách sạn',
-        'airport': 'Sân bay',
-        'tourism': 'Du lịch',
-        'culture': 'Văn hóa',
-        'festival': 'Lễ hội',
-        'tradition': 'Truyền thống',
-        'religion': 'Tôn giáo',
-        'food': 'Ẩm thực',
-        'korean_food': 'Món Hàn',
-        'cooking': 'Nấu ăn',
-        'restaurant': 'Nhà hàng',
-        'drink': 'Đồ uống',
-        'dessert': 'Tráng miệng',
-        'sports': 'Thể thao',
-        'football': 'Bóng đá',
-        'baseball': 'Bóng chày',
-        'basketball': 'Bóng rổ',
-        'swimming': 'Bơi lội',
-        'martial_arts': 'Võ thuật',
-        'esports': 'Esports',
-        'entertainment': 'Giải trí',
-        'music': 'Âm nhạc',
-        'dance': 'Khiêu vũ',
-        'movie': 'Phim',
-        'drama': 'Phim Hàn',
-        'kpop': 'K-pop',
-        'art': 'Nghệ thuật',
-        'painting': 'Hội họa',
-        'design': 'Thiết kế',
-        'photography': 'Nhiếp ảnh',
-        'architecture': 'Kiến trúc',
-        'fashion': 'Thời trang',
-        'sejong': 'Viện Sejong',
-        'korean_government': 'Từ điển quốc gia',
-        'korean_edu': 'Bộ Giáo dục Hàn',
-        'kbs': 'KBS News',
-        'mbc': 'MBC News',
-        'ytn': 'YTN News',
-        'naver': 'Naver Dictionary',
-        'daum': 'Daum Dictionary',
-        'papago': 'Papago',
-        'news': 'Báo chí',
-        'newspaper': 'Báo in',
-        'broadcast': 'Phát thanh',
-        'journalism': 'Báo chí',
-        'social_media': 'Mạng xã hội',
-        'advertising': 'Quảng cáo',
-        'engineering': 'Kỹ thuật',
-        'construction': 'Xây dựng',
-        'electricity': 'Điện',
-        'mechanical': 'Cơ khí',
-        'civil_eng': 'Xây dựng dân dụng',
-        'architect': 'Kiến trúc sư',
-        'transport': 'Giao thông',
-        'car': 'Xe hơi',
-        'public_transport': 'Vận tải công cộng',
-        'shipping': 'Vận tải biển',
-        'aviation': 'Hàng không',
-        'technology': 'Công nghệ',
-        'programming': 'Lập trình',
-        'web': 'Web',
-        'mobile': 'Di động',
-        'ai': 'Trí tuệ nhân tạo',
-        'cybersecurity': 'An ninh mạng',
-        'cloud': 'Điện toán đám mây',
-        'database': 'Cơ sở dữ liệu',
-        'environment': 'Môi trường',
-        'ecology': 'Sinh thái',
-        'climate': 'Khí hậu',
-        'renewable': 'Năng lượng tái tạo',
-        'conservation': 'Bảo tồn',
-        'pollution': 'Ô nhiễm',
-        'emotion': 'Cảm xúc',
-        'mindset': 'Tư duy',
-        'meditation': 'Thiền',
-        'spiritual': 'Tâm linh',
-        'love': 'Tình yêu',
-        'friendship': 'Tình bạn',
-        'skill': 'Kỹ năng',
-        'leadership': 'Lãnh đạo',
-        'teamwork': 'Làm việc nhóm',
-        'problem_solving': 'Giải quyết vấn đề',
-        'communication': 'Giao tiếp',
-        'time_management': 'Quản lý thời gian'
-      };
-
-      messageBox.innerHTML = "⏳ Đang tải từ vựng...";
-      messageBox.className = "message-box loading-msg";
-      fetchBtn.disabled = true;
-
-      setTimeout(() => {
-        vocabulary = getVocabularyBySource(source);
-        currentIndex = 0;
-        score = 0;
-        totalAttempts = 0;
-        renderCurrentWord();
-        fetchBtn.disabled = false;
-
-        const name = sourceNames[source] || source;
-        const wordCount = vocabulary.length;
-        sourceInfo.textContent = `📌 Đang học: ${name} (${wordCount} từ)`;
-        
-        messageBox.innerHTML = `✅ Đã tải ${wordCount} từ (${name})`;
-        messageBox.className = "message-box success-msg";
-
-        if (userName) {
-          sendToTelegram(`📚 <b>${userName}</b> chọn nguồn: ${name} (${wordCount} từ)`);
+        function addToWrong(item) {
+            const exists = wrongWords.find(w => w.korean === item.korean);
+            if (!exists) wrongWords.push({...item, wrongTimes: 1});
+            else exists.wrongTimes++;
+            stats.wrongCounts[item.korean] = (stats.wrongCounts[item.korean] || 0) + 1;
+            saveData();
         }
-
-        koreanInput.focus();
-      }, 500);
-    }
-
-    function saveUserName() {
-      const n = usernameInput.value.trim();
-      if (!n) return alert("Nhập tên hợp lệ.");
-      userName = n;
-      displayNameSpan.textContent = `👤 ${userName}`;
-      localStorage.setItem('korean10k_user_v3', userName);
-      sendToTelegram(`✏️ Người dùng: <b>${userName}</b> bắt đầu học.`);
-      if (vocabulary.length && currentIndex < vocabulary.length) {
-        koreanInput.disabled = false;
-        koreanInput.focus();
-      }
-    }
-
-    async function init() {
-      const saved = localStorage.getItem('korean10k_user_v3');
-      if (saved) {
-        userName = saved;
-        usernameInput.value = saved;
-        displayNameSpan.textContent = `👤 ${userName}`;
-      }
-      messageBox.innerHTML = "⏳ Đang tạo 10.000 từ vựng...";
-      vocabulary = generateCombinedVocabulary();
-      currentIndex = 0;
-      score = 0;
-      totalAttempts = 0;
-      renderCurrentWord();
-      const totalSrc = sourceSelect.options.length;
-      totalSources.textContent = totalSrc;
-      totalWords.textContent = "10.000+";
-      sourceInfo.textContent = `📌 ${totalSrc} nguồn từ vựng từ các trang web tiếng Hàn`;
-      if (userName) {
-        sendToTelegram(`🟢 <b>${userName}</b> vào trang học từ vựng (120+ nguồn).`);
-      }
-    }
-
-    // Sự kiện
-    saveNameBtn.addEventListener("click", saveUserName);
-    usernameInput.addEventListener("keypress", e => { if (e.key === "Enter") saveUserName(); });
-    checkBtn.addEventListener("click", checkAnswer);
-    fetchBtn.addEventListener("click", fetchVocabulary);
-
-    koreanInput.addEventListener("keypress", e => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        if (!isWaitingAuto) {
-          checkAnswer();
+        function renderWrongList() {
+            const container = document.getElementById('wrong-list-container');
+            const emptyMsg = document.getElementById('empty-wrong');
+            if (wrongWords.length === 0) {
+                container.innerHTML = '';
+                emptyMsg.style.display = 'block';
+                return;
+            }
+            emptyMsg.style.display = 'none';
+            container.innerHTML = wrongWords.map((w, i) => `
+                <div class="wrong-item">
+                    <span><strong>${w.korean}</strong> — ${w.vietnamese}</span>
+                    <button style="border:none; background:red; color:white; border-radius:4px; padding:2px 8px; cursor:pointer" onclick="removeWrong(${i})">×</button>
+                </div>
+            `).join('');
         }
-      }
-    });
-
-    init();
-  })();
-</script>
+        function removeWrong(index) {
+            wrongWords.splice(index, 1);
+            saveData();
+            renderWrongList();
+        }
+        function clearWrong() {
+            if (confirm('Xóa toàn bộ danh sách?')) {
+                wrongWords = [];
+                saveData();
+                renderWrongList();
+            }
+        }
+        function switchToWrong() {
+            document.querySelector('[data-tab="wrong"]').click();
+        }
+        function reviewWrong() {
+            if (wrongWords.length === 0) return alert('Không có từ nào để ôn!');
+            isReviewMode = true;
+            shuffledList = shuffleArray([...wrongWords]);
+            currentIndex = 0;
+            correctCount = 0;
+            wrongCount = 0;
+            document.getElementById('finished-area').classList.add('hidden');
+            document.querySelector('[data-tab="quiz"]').click();
+            document.getElementById('total-num').textContent = shuffledList.length;
+            showWord();
+        }
+        function renderStats() {
+            const totalAnswered = stats.totalCorrect + stats.totalWrong;
+            document.getElementById('stat-total-sessions').textContent = stats.totalSessions;
+            document.getElementById('stat-total-correct').textContent = stats.totalCorrect;
+            document.getElementById('stat-total-wrong').textContent = stats.totalWrong;
+            document.getElementById('stat-rate').textContent = totalAnswered > 0 ? Math.round(stats.totalCorrect / totalAnswered * 100) + '%' : '0%';
+            const entries = Object.entries(stats.wrongCounts || {}).sort((a, b) => b[1] - a[1]);
+            if (entries.length > 0) {
+                const [kor, cnt] = entries[0];
+                const word = vocabulary.find(w => w.korean === kor);
+                document.getElementById('stat-most-wrong').textContent = 
+                    `${kor} — ${word ? word.vietnamese : 'không rõ'} (sai ${cnt} lần)`;
+            }
+        }
+        function importVocab() {
+            const text = document.getElementById('vocab-input').value.trim();
+            if (!text) return alert('Vui lòng nhập nội dung!');
+            const lines = text.split('\n').filter(l => l.trim());
+            let added = 0;
+            lines.forEach(line => {
+                const [k, v] = line.split(/[:：]/).map(s => s.trim());
+                if (k && v) {
+                    vocabulary.push({korean: k, vietnamese: v});
+                    added++;
+                }
+            });
+            alert(`Đã thêm ${added} từ vựng!`);
+            document.getElementById('vocab-input').value = '';
+            restart();
+        }
+        function exportVocab() {
+            const text = vocabulary.map(w => `${w.korean}:${w.vietnamese}`).join('\n');
+            document.getElementById('export-output').value = text;
+        }
+        function copyExport() {
+            const text = document.getElementById('export-output').value;
+            if (!text) return alert('Chưa có nội dung!');
+            navigator.clipboard.writeText(text).then(() => alert('Đã sao chép!'));
+        }
+        function initQuiz() {
+            shuffledList = shuffleArray([...vocabulary]);
+            isReviewMode = false;
+            currentIndex = 0;
+            correctCount = 0;
+            wrongCount = 0;
+            document.getElementById('total-num').textContent = shuffledList.length;
+            showWord();
+        }
+        function showWord() {
+            if (currentIndex >= shuffledList.length) {
+                finishQuiz();
+                return;
+            }
+            const item = shuffledList[currentIndex];
+            document.getElementById('current-num').textContent = currentIndex + 1;
+            document.getElementById('result-box').style.display = 'none';
+            document.getElementById('answer-input').value = '';
+            if (mode === 'kr-vn') {
+                document.getElementById('korean-word').textContent = item.korean;
+                document.getElementById('korean-word').classList.remove('hidden');
+                document.getElementById('viet-question').classList.add('hidden');
+                document.getElementById('speak-btn').style.display = 'inline-block';
+                document.getElementById('answer-input').placeholder = 'Nhập nghĩa tiếng Việt...';
+            } else {
+                document.getElementById('viet-question').textContent = item.vietnamese;
+                document.getElementById('viet-question').classList.remove('hidden');
+                document.getElementById('korean-word').classList.add('hidden');
+                document.getElementById('speak-btn').style.display = 'none';
+                document.getElementById('answer-input').placeholder = 'Nhập từ tiếng Hàn...';
+            }
+            document.getElementById('answer-input').focus();
+        }
+        function checkAnswer() {
+            const input = document.getElementById('answer-input').value.trim().toLowerCase();
+            if (!input) return;
+            const item = shuffledList[currentIndex];
+            const resultBox = document.getElementById('result-box');
+            let isCorrect = false;
+            if (mode === 'kr-vn') {
+                const correctAns = item.vietnamese.toLowerCase();
+                const words = correctAns.split(/[,;，\s]+/).filter(w => w.length > 0);
+                isCorrect = words.some(w => input.includes(w) || w.includes(input)) || input === correctAns;
+            } else {
+                isCorrect = input === item.korean.toLowerCase();
+            }
+            if (isCorrect) {
+                correctCount++;
+                stats.totalCorrect++;
+                resultBox.className = 'result correct';
+                resultBox.innerHTML = '🎉 Giỏi!';
+                if (isReviewMode) {
+                    const idx = wrongWords.findIndex(w => w.korean === item.korean);
+                    if (idx !== -1) wrongWords.splice(idx, 1);
+                    saveData();
+                }
+            } else {
+                wrongCount++;
+                stats.totalWrong++;
+                resultBox.className = 'result wrong';
+                resultBox.innerHTML = `😏 Sai rồi!<br>Đáp án: <strong>${mode === 'kr-vn' ? item.vietnamese : item.korean}</strong>`;
+                addToWrong(item);
+            }
+            resultBox.style.display = 'block';
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('wrong-count').textContent = wrongCount;
+            saveData();
+            setTimeout(() => {
+                currentIndex++;
+                showWord();
+            }, 1500);
+        }
+        function finishQuiz() {
+            stats.totalSessions++;
+            saveData();
+            document.getElementById('quiz').querySelector('.stats-row').style.display = 'none';
+            document.getElementById('finished-area').classList.remove('hidden');
+            document.getElementById('final-total').textContent = shuffledList.length;
+            document.getElementById('final-correct').textContent = correctCount;
+            document.getElementById('final-wrong').textContent = wrongCount;
+        }
+        function restart() {
+            document.getElementById('finished-area').classList.add('hidden');
+            document.getElementById('quiz').querySelector('.stats-row').style.display = 'flex';
+            initQuiz();
+        }
+        document.getElementById('answer-input').addEventListener('keypress', e => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+        initQuiz();
+    </script>
 </body>
 </html>
